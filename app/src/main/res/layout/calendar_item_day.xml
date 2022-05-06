@@ -9,30 +9,29 @@
     <TextView
         android:id="@+id/tv_item_gridview"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="20dp"
         android:textSize="15sp"/>
 
     <LinearLayout
+        android:paddingTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:orientation="vertical"
-        android:gravity="left|center"
+        android:gravity="left"
         >
 
         <TextView
             android:id="@+id/day_count"
-            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="10sp"
-            android:text="건수 : 00"/>
+            android:text="1건"/>
 
         <TextView
-            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="10sp"
-            android:text="지출 : 00"/>
+            android:text="12000원"/>
 
     </LinearLayout>
 

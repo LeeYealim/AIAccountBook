@@ -107,55 +107,109 @@
             android:layout_height="0dp"
             android:layout_width="match_parent"
             android:numColumns="7"
-            android:listSelector="#E37E7E"
+            android:listSelector="#D5D2D2"
             >
         </GridView>
 
+        <TableLayout
 
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:stretchColumns="1">
 
-            <TextView
-                android:background="@drawable/border"
-                android:id="@+id/text_total"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="8dp"
-                android:textSize="20dp"
-                android:textColor="#B1A4A4"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:text="TOTAL"/>
+            <TableRow android:layout_marginBottom="10dp">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="3">
                 <TextView
-                    android:background="@drawable/border"
-                    android:id="@+id/textItem1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:padding="4dp"
-                    android:hint="total_count"
-                    />
-                <TextView
-                    android:background="@drawable/border"
-                    android:id="@+id/textItem2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:padding="4dp"
-                    android:hint="total_price"
-                    />
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="등록"
+                    android:textSize="20sp" />
 
-        </LinearLayout>
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/edit_total"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/edittext_rounded_corner_rectangle"
+                    android:hint="이번 달 총 등록 건수"
+                    android:inputType="number" />
+
+            </TableRow>
+
+            <TableRow android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:text="합계"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:enabled="false"
+                    android:id="@+id/edit_cost"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/edittext_rounded_corner_rectangle"
+                    android:hint="이번 달 총 등록 합계"
+                    android:inputType="number" />
+
+            </TableRow>
+
+
+        </TableLayout>
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:background="@drawable/border"-->
+<!--                android:id="@+id/total"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:padding="8dp"-->
+<!--                android:textSize="20dp"-->
+<!--                android:textColor="#B1A4A4"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:gravity="center"-->
+<!--                android:text="TOTAL"/>-->
+
+<!--            <LinearLayout-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="3">-->
+<!--                <TextView-->
+<!--                    android:background="@drawable/border"-->
+<!--                    android:id="@+id/Item1"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="15dp"-->
+<!--                    android:padding="4dp"-->
+<!--                    android:hint="total_count"-->
+<!--                    />-->
+<!--                <TextView-->
+<!--                    android:background="@drawable/border"-->
+<!--                    android:id="@+id/Item2"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="15dp"-->
+<!--                    android:padding="4dp"-->
+<!--                    android:hint="total_price"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
 
 
     </LinearLayout>
