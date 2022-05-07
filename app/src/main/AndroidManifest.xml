@@ -11,9 +11,11 @@
         android:theme="@style/Theme.AIAcountBook">
         <activity
             android:name=".ListActivity"
+            android:parentActivityName=".CalendarActivity"
             android:exported="false" />
         <activity
             android:name=".AddActivity"
+            android:parentActivityName=".CalendarActivity"
             android:exported="false" />
         <activity
             android:name=".CalendarActivity"
