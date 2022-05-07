@@ -1,5 +1,6 @@
 package com.example.aiacountbook;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -13,10 +14,15 @@ public class AddActivity extends AppCompatActivity {
     private TextView edit_date;
     private DatePickerDialog.OnDateSetListener callbackMethod;
 
+    private ActionBar ab;                   // 앱바
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+        ab = getSupportActionBar() ;
+        ab.setTitle("영수증 등록");
     }
 
     public void InitializeView()

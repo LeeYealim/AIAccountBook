@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AIAcountBook">
         <activity
+            android:name=".ListActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddActivity"
             android:exported="false" />
         <activity

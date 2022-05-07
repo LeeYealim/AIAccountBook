@@ -2,24 +2,26 @@ package com.example.aiacountbook;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +64,6 @@ public class CalendarActivity extends AppCompatActivity {
 //        });
 
 
-
         //플로팅 버튼 클릭 시 영수증 등록 액티비티 실행
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.btn_add);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +74,14 @@ public class CalendarActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AddActivity.class);
                 startActivity(intent);
 
-                // 토스트 메세지 전송
-                Toast.makeText(CalendarActivity.this, "클릭",
-                        Toast.LENGTH_SHORT).show();
+//                // 토스트 메세지 전송
+//                Toast.makeText(CalendarActivity.this, "클릭",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
 
         // 일수 표시할 그리드 뷰
         gridView = (GridView)findViewById(R.id.gridview);
@@ -108,10 +112,44 @@ public class CalendarActivity extends AppCompatActivity {
         }
         setCalendarDate(calendar.get(Calendar.MONTH) + 1);
 
-        gridAdapter = new GridAdapter(getApplicationContext(), dayList);
+        gridAdapter = new GridAdapter(getApplicationContext(), dayList, null);
         gridView.setAdapter(gridAdapter);
 
     }
+
+    // 메뉴 --------------------------------------------------
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    
+    // 메뉴 선택 시 액션
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.quick_action1:
+//                Toast.makeText(getApplicationContext(), "action_quick", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.action_settings:
+//                Toast.makeText(getApplicationContext(), "action_settings", Toast.LENGTH_SHORT).show();
+//                return true;
+//            case R.id.action_subactivity:
+//                startActivity(new Intent(this,SubActivity.class));
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+        //Toast.makeText(getApplicationContext(), "메뉴 클릭", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,ListActivity.class));
+        return true;
+    }
+    // 메뉴 --------------------------------------------------
+
+
+
+
 
     /**
      * 해당 월에 표시할 일 수 구함
@@ -129,21 +167,23 @@ public class CalendarActivity extends AppCompatActivity {
 
 
     // 그리드 뷰 어댑터
+    // 여기에서 일수 칸에 데이터 셋팅
     private class GridAdapter extends BaseAdapter {
 
         private final List<String> list;
-
         private final LayoutInflater inflater;
+        private final List<String> vallist;
 
         /**
          * 생성자
-         *
-         * @param context
+         *  @param context
          * @param list
+         * @param vallist
          */
-        public GridAdapter(Context context, List<String> list) {
+        public GridAdapter(Context context, List<String> list, List<String> vallist) {
             this.list = list;
             this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            this.vallist = vallist;
         }
 
         @Override
