@@ -27,7 +27,8 @@ public class ListActivity extends AppCompatActivity {
         
         // 앱바 설정
         ab = getSupportActionBar() ;
-        ab.setTitle(title);
+        ab.setDisplayHomeAsUpEnabled(true);     // 위로 버튼 활성화
+        ab.setTitle(title);                     // 앱바 타이틀 설정
 
         // 데이터 원본 준비
         ArrayList<DayItem> data = new ArrayList<DayItem>();
