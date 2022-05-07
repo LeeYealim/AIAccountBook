@@ -16,12 +16,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -181,30 +177,30 @@ public class CalendarActivity extends AppCompatActivity {
     // 여기에서 일수 칸에 데이터 셋팅
     private class GridAdapter extends BaseAdapter {
 
-        private final List<String> list;
+        private final List<String> dayList;
         private final LayoutInflater inflater;
-        private final List<String> vallist;
+        private final List<String> valList;
 
         /**
          * 생성자
          *  @param context
          * @param list
-         * @param vallist
+         * @param list2
          */
-        public GridAdapter(Context context, List<String> list, List<String> vallist) {
-            this.list = list;
+        public GridAdapter(Context context, List<String> list, List<String> list2) {
+            this.dayList = list;
             this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.vallist = vallist;
+            this.valList = list2;
         }
 
         @Override
         public int getCount() {
-            return list.size();
+            return dayList.size();
         }
 
         @Override
         public String getItem(int position) {
-            return list.get(position);
+            return dayList.get(position);
         }
 
         @Override
@@ -222,12 +218,20 @@ public class CalendarActivity extends AppCompatActivity {
                 holder = new ViewHolder();
 
                 holder.tvItemGridView = (TextView)convertView.findViewById(R.id.tv_item_gridview);
+                holder.tv_count = (TextView)convertView.findViewById(R.id.day_count);
+                holder.tv_price = (TextView)convertView.findViewById(R.id.day_price);
 
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder)convertView.getTag();
             }
             holder.tvItemGridView.setText("" + getItem(position));
+            
+            // 임의로 값 집어 넣음
+            if(getItem(position).equals("5")){
+                holder.tv_count.setText("2건");
+                holder.tv_price.setText("30000원");
+            }
 
             //해당 날짜 텍스트 컬러,배경 변경
             calendar = Calendar.getInstance();
@@ -243,5 +247,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private class ViewHolder {
         TextView tvItemGridView;
+        TextView tv_count;
+        TextView tv_price;
     }
 }

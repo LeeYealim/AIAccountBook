@@ -2,10 +2,12 @@ package com.example.aiacountbook;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -25,6 +30,7 @@ public class AddActivity extends AppCompatActivity {
 
     Button btnCamera;
     ImageView imageView;
+    Uri photoUri;
 
 
     private ActionBar ab;                   // 앱바
@@ -53,6 +59,19 @@ public class AddActivity extends AppCompatActivity {
 
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(i, 0);
+
+//                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                // 사진파일 변수 선언 및 경로세팅
+//                File photoFile = null; try {
+//                    photoFile = createImageFile();
+//                } catch (IOException ex) { }
+//                // 사진을 저장하고 이미지뷰에 출력
+//                if(photoFile != null) {
+//                    photoUri = FileProvider.getUriForFile(AddActivity.this, getPackageName() + ".fileprovider", photoFile);
+//                    i.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+//                    startActivityForResult(i, 0);
+//                }
+
             }
         });
 
@@ -66,7 +85,22 @@ public class AddActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");   // 이미지뷰에 Bitmap으로 이미지를 입력
             imageView.setImageBitmap(imageBitmap);
         }
+
+//        if(requestCode == 0 && resultCode == RESULT_OK) { // 이미지뷰에 파일경로의 사진을 가져와 출력
+//            imageView.setImageURI(photoUri);
+//        }
+
     }
+    // ImageFile의 경로를 가져올 메서드 선언
+    private File createImageFile() throws IOException { // 파일이름을 세팅 및 저장경로 세팅
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File StorageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile( imageFileName, ".jpg", storageDir );
+        return image;
+    }
+
 
 
 
