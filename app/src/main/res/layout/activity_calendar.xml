@@ -101,22 +101,22 @@
                 android:text="토"/>
         </LinearLayout>
 
-<!--        <GridView-->
-<!--            android:id="@+id/gridview"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:numColumns="7"-->
-<!--            android:listSelector="#D5D2D2"-->
-<!--            >-->
-<!--        </GridView>-->
-
-        <!--  뷰페이저 프래그먼트 테스트 -->
-        <androidx.viewpager2.widget.ViewPager2
+        <GridView
+            android:id="@+id/gridview"
             android:layout_weight="1"
-            android:id="@+id/vpPager"
+            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:numColumns="7"
+            android:listSelector="#D5D2D2"
+            >
+        </GridView>
+
+<!--        &lt;!&ndash;  뷰페이저 프래그먼트 테스트 &ndash;&gt;-->
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:layout_weight="1"-->
+<!--            android:id="@+id/vpPager"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"/>-->
 
         <TableLayout
 

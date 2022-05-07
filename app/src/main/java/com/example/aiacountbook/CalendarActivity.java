@@ -44,30 +44,30 @@ public class CalendarActivity extends AppCompatActivity {
         
         // 앱바
         ab = getSupportActionBar() ;
-        //ab.setTitle("ActionBar Title by setTitle()") ;
-
-        // 뷰페이저와 어댑터 연결
-        ViewPager2 vpPager = findViewById(R.id.vpPager);
-        FragmentStateAdapter adapter = new PagerAdapter(this);
-        vpPager.setAdapter(adapter);
-
-
-
-        //플로팅 버튼 클릭 시 영수증 등록 액티비티 실행
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.btn_add);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // 액티비티 열기
-                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-                startActivity(intent);
-
-//                // 토스트 메세지 전송
-//                Toast.makeText(CalendarActivity.this, "클릭",
-//                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        ab.setTitle("ActionBar Title by setTitle()");
+//
+//        // 뷰페이저와 어댑터 연결
+//        ViewPager2 vpPager = findViewById(R.id.vpPager);
+//        FragmentStateAdapter adapter = new PagerAdapter(this);
+//        vpPager.setAdapter(adapter);
+//
+//
+//
+//        //플로팅 버튼 클릭 시 영수증 등록 액티비티 실행
+//        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.btn_add);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                // 액티비티 열기
+//                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+//                startActivity(intent);
+//
+////                // 토스트 메세지 전송
+////                Toast.makeText(CalendarActivity.this, "클릭",
+////                        Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         // 일수 표시할 그리드 뷰
         gridView = (GridView)findViewById(R.id.gridview);
@@ -80,26 +80,26 @@ public class CalendarActivity extends AppCompatActivity {
         final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
         final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
 
-        ab.setTitle(curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월");
-
-        // gridview 요일 표시
-        dayList = new ArrayList<String>();
-
-        // 캘린더 객체 생성
-        calendar = Calendar.getInstance();
-
-        // 이번 달 1일 무슨 요일인지 판단 calendar.set(Year,Month,Day)
-        calendar.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date)) - 1, 1);
-        // 1:일, 2:월, ....
-        int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
-        //1일 - 요일 매칭 시키기 위해 공백 add
-        for (int i = 1; i < dayNum; i++) {
-            dayList.add("");
-        }
-        setCalendarDate(calendar.get(Calendar.MONTH) + 1);
-
-        gridAdapter = new GridAdapter(getApplicationContext(), dayList);
-        gridView.setAdapter(gridAdapter);
+        //ab.setTitle(curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월");
+//
+//        // gridview 요일 표시
+//        dayList = new ArrayList<String>();
+//
+//        // 캘린더 객체 생성
+//        calendar = Calendar.getInstance();
+//
+//        // 이번 달 1일 무슨 요일인지 판단 calendar.set(Year,Month,Day)
+//        calendar.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date)) - 1, 1);
+//        // 1:일, 2:월, ....
+//        int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
+//        //1일 - 요일 매칭 시키기 위해 공백 add
+//        for (int i = 1; i < dayNum; i++) {
+//            dayList.add("");
+//        }
+//        setCalendarDate(calendar.get(Calendar.MONTH) + 1);
+//
+//        gridAdapter = new GridAdapter(getApplicationContext(), dayList);
+//        gridView.setAdapter(gridAdapter);
 
     }
 
