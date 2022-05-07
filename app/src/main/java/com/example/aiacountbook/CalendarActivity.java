@@ -38,15 +38,13 @@ public class CalendarActivity extends AppCompatActivity {
     private ArrayList<String> dayList;      // 일 저장할 리스트
     private GridView gridView;              // 그리드 뷰
     private Calendar calendar;              // 캘린더 변수
+    private String ActionBarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        
-        // 앱바
-        ab = getSupportActionBar() ;
-        ab.setTitle("ActionBar Title by setTitle()");
+
 
 //        // 뷰페이저와 어댑터 연결
 //        ViewPager2 vpPager = findViewById(R.id.vpPager);
@@ -93,8 +91,12 @@ public class CalendarActivity extends AppCompatActivity {
         final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
         final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
         final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
+        
+        // 앱바 설정
+        ActionBarTitle = curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월";
+        ab = getSupportActionBar() ;
+        ab.setTitle(ActionBarTitle);
 
-        ab.setTitle(curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월");
 
         // gridview 요일 표시
         dayList = new ArrayList<String>();
@@ -142,7 +144,16 @@ public class CalendarActivity extends AppCompatActivity {
 //                return super.onOptionsItemSelected(item);
 //        }
         //Toast.makeText(getApplicationContext(), "메뉴 클릭", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this,ListActivity.class));
+
+
+        //startActivity(new Intent(this,ListActivity.class));
+        //인텐트 선언 및 정의
+        Intent intent =new Intent(this,ListActivity.class);
+        // 입력한 input값을 intent로 전달한다.
+        intent.putExtra("title", ActionBarTitle);
+        // 액티비티 이동
+        startActivity(intent);
+
         return true;
     }
     // 메뉴 --------------------------------------------------

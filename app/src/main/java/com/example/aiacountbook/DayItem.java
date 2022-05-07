@@ -4,24 +4,24 @@ package com.example.aiacountbook;
 
 public class DayItem {
 
-//    String date;   // text
-//    String title;    // text
-//    String price;
-//
-//
-//    DayItem(String aDate, String aTitle, String aPrice) {
-//        date = aDate;
-//        title = aTitle;
-//        price = aPrice;
-//    }
+    String date;   // text
+    String title;    // text
+    String price;
 
-    int mIcon; // image resource
-    String nName; // text
-    String nAge;  // text
 
-    DayItem(int aIcon, String aName, String aAge) {
-        mIcon = aIcon;
-        nName = aName;
-        nAge = aAge;
+    DayItem(String aDate, String aTitle, String aPrice) {
+        date = aDate;
+        title = aTitle;
+        price = aPrice;
     }
+
+//    int mIcon; // image resource
+//    String nName; // text
+//    String nAge;  // text
+//
+//    DayItem(int aIcon, String aName, String aAge) {
+//        mIcon = aIcon;
+//        nName = aName;
+//        nAge = aAge;
+//    }
 }

@@ -51,19 +51,15 @@ public class ListAdapter extends BaseAdapter {
             convertView = inflater.inflate(mResource, parent,false);
         }
 
-//        // convertView 변수로 참조되는 항목 뷰 객체내에 포함된 이미지뷰 객체를 id를 통해 얻어옴
-//        ImageView icon = (ImageView) convertView.findViewById(R.id.iconItem);
-//        // 어댑터가 관리하는 항목 데이터 중에서 position 위치의 항목의 이미지 리소스를 이미지뷰 객체에 설정
-//        icon.setImageResource(mItems.get(position).mIcon);
 
-        // convertView 변수로 참조되는 항목 뷰 객체내에 포함된 텍스트뷰 객체를 id를 통해 얻어옴
-        TextView name = (TextView) convertView.findViewById(R.id.textItem1);
-        // 어댑터가 관리하는 항목 데이터 중에서 position 위치의 항목의 문자열을 설정 텍스트뷰 객체에 설정
-        name.setText(mItems.get(position).nName);
+        TextView date = (TextView) convertView.findViewById(R.id.list_date);
+        date.setText(mItems.get(position).date);
 
-        // Set Text 02
-        TextView age = (TextView) convertView.findViewById(R.id.textItem2);
-        age.setText(mItems.get(position).nAge);
+        TextView title = (TextView) convertView.findViewById(R.id.list_title);
+        title.setText(mItems.get(position).title);
+
+        TextView price = (TextView) convertView.findViewById(R.id.list_price);
+        price.setText(mItems.get(position).price);
 
         return convertView;
     }
