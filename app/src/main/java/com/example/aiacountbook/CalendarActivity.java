@@ -1,6 +1,9 @@
 package com.example.aiacountbook;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 
 import android.content.Context;
@@ -27,7 +30,8 @@ import java.util.Locale;
 
 public class CalendarActivity extends AppCompatActivity {
 
-    private TextView title_year_month;      // 년/월 텍스트뷰
+    //private TextView title_year_month;     // 년/월 텍스트뷰
+    private ActionBar ab;                   // 앱바
     private GridAdapter gridAdapter;        // 그리드뷰 어댑터
     private ArrayList<String> dayList;      // 일 저장할 리스트
     private GridView gridView;              // 그리드 뷰
@@ -36,27 +40,25 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_calendar);
+        
+        // 앱바
+        ab = getSupportActionBar() ;
+        //ab.setTitle("ActionBar Title by setTitle()") ;
+
+        // 뷰페이저와 어댑터 연결
+        ViewPager2 vpPager = findViewById(R.id.vpPager);
+        FragmentStateAdapter adapter = new PagerAdapter(this);
+        vpPager.setAdapter(adapter);
 
 
 
-//        Button btn = findViewById(R.id.btn_add);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
+        //플로팅 버튼 클릭 시 영수증 등록 액티비티 실행
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.btn_add);
-
-        //플로팅 버튼
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+
                 // 액티비티 열기
                 Intent intent = new Intent(getApplicationContext(), AddActivity.class);
                 startActivity(intent);
@@ -67,19 +69,6 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-
-        // 상단 년/월 설정할 텍스트뷰
-        title_year_month = (TextView)findViewById(R.id.title_year_month);
         // 일수 표시할 그리드 뷰
         gridView = (GridView)findViewById(R.id.gridview);
 
@@ -91,19 +80,11 @@ public class CalendarActivity extends AppCompatActivity {
         final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
         final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
 
-        // 현재 날짜 텍스트뷰에 설정함
-        title_year_month.setText(curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월");
+        ab.setTitle(curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월");
 
         // gridview 요일 표시
         dayList = new ArrayList<String>();
-//        dayList.add("일");
-//        dayList.add("월");
-//        dayList.add("화");
-//        dayList.add("수");
-//        dayList.add("목");
-//        dayList.add("금");
-//        dayList.add("토");
-        
+
         // 캘린더 객체 생성
         calendar = Calendar.getInstance();
 

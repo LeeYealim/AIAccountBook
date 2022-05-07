@@ -13,41 +13,41 @@
         android:background="#ffffff" >
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:background="#8EC8F1"
-            >
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            android:background="#8EC8F1"-->
+<!--            >-->
 
-            <Button
-                android:id="@+id/button_before"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/ic_baseline_navigate_before_24" />
+<!--            <Button-->
+<!--                android:id="@+id/button_before"-->
+<!--                android:layout_width="35dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:background="@drawable/ic_baseline_navigate_before_24" />-->
 
-            <TextView
-                android:id="@+id/title_year_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                />
-
-
-            <Button
-                android:id="@+id/button_next"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/ic_baseline_navigate_next_24" />
+<!--            <TextView-->
+<!--                android:id="@+id/title_year_month"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="#000000"-->
+<!--                android:textSize="20sp"-->
+<!--                android:layout_marginLeft="30dp"-->
+<!--                android:layout_marginRight="30dp"-->
+<!--                />-->
 
 
-        </LinearLayout>
+<!--            <Button-->
+<!--                android:id="@+id/button_next"-->
+<!--                android:layout_width="35dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:background="@drawable/ic_baseline_navigate_next_24" />-->
+
+
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,15 +101,22 @@
                 android:text="토"/>
         </LinearLayout>
 
-        <GridView
-            android:id="@+id/gridview"
+<!--        <GridView-->
+<!--            android:id="@+id/gridview"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:numColumns="7"-->
+<!--            android:listSelector="#D5D2D2"-->
+<!--            >-->
+<!--        </GridView>-->
+
+        <!--  뷰페이저 프래그먼트 테스트 -->
+        <androidx.viewpager2.widget.ViewPager2
             android:layout_weight="1"
-            android:layout_height="0dp"
+            android:id="@+id/vpPager"
             android:layout_width="match_parent"
-            android:numColumns="7"
-            android:listSelector="#D5D2D2"
-            >
-        </GridView>
+            android:layout_height="wrap_content"/>
 
         <TableLayout
 
@@ -162,57 +169,11 @@
 
             </TableRow>
 
-
         </TableLayout>
 
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <TextView-->
-<!--                android:background="@drawable/border"-->
-<!--                android:id="@+id/total"-->
-<!--                android:layout_width="60dp"-->
-<!--                android:layout_height="60dp"-->
-<!--                android:padding="8dp"-->
-<!--                android:textSize="20dp"-->
-<!--                android:textColor="#B1A4A4"-->
-<!--                android:layout_weight="1"-->
-<!--                android:layout_gravity="center_vertical"-->
-<!--                android:gravity="center"-->
-<!--                android:text="TOTAL"/>-->
-
-<!--            <LinearLayout-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="3">-->
-<!--                <TextView-->
-<!--                    android:background="@drawable/border"-->
-<!--                    android:id="@+id/Item1"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textSize="15dp"-->
-<!--                    android:padding="4dp"-->
-<!--                    android:hint="total_count"-->
-<!--                    />-->
-<!--                <TextView-->
-<!--                    android:background="@drawable/border"-->
-<!--                    android:id="@+id/Item2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textSize="15dp"-->
-<!--                    android:padding="4dp"-->
-<!--                    android:hint="total_price"-->
-<!--                    />-->
-<!--            </LinearLayout>-->
-
-<!--        </LinearLayout>-->
-
-
     </LinearLayout>
+
+
 
     //플로팅 버튼
     <com.google.android.material.floatingactionbutton.FloatingActionButton
