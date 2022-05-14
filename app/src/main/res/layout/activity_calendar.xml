@@ -142,6 +142,9 @@
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/edittext_rounded_corner_rectangle"
+                    android:gravity="right|center"
+                    android:paddingRight="5dp"
+                    android:text="2 건"
                     android:hint="이번 달 총 등록 건수"
                     android:inputType="number" />
 
@@ -164,6 +167,9 @@
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/edittext_rounded_corner_rectangle"
+                    android:gravity="right|center"
+                    android:paddingRight="5dp"
+                    android:text="30000 원"
                     android:hint="이번 달 총 등록 합계"
                     android:inputType="number" />
 

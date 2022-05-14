@@ -2,11 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.aiacountbook">
 
-    <!--  외부저장소 권한 추가  -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-
+    <!-- 이상하게 인터넷 퍼미션이 있어야 버츄얼 디바이스에서 카메라 오류가 안나네? -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,14 +12,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AIAcountBook">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.aiacountbook.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
+        <activity
+            android:name=".ImageTestActivity"
+            android:exported="false" />
         <activity
             android:name=".ListActivity"
-            android:parentActivityName=".CalendarActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".CalendarActivity" />
         <activity
             android:name=".AddActivity"
-            android:parentActivityName=".CalendarActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".CalendarActivity" />
         <activity
             android:name=".CalendarActivity"
             android:exported="true">

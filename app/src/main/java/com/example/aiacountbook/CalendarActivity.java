@@ -65,7 +65,8 @@ public class CalendarActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // 액티비티 열기
-                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ImageTestActivity.class);
                 startActivity(intent);
 
 //                // 토스트 메세지 전송
