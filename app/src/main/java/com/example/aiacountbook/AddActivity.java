@@ -43,7 +43,8 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        //setContentView(R.layout.activity_add);
+        setContentView(R.layout.scroll_test);
 
         ab = getSupportActionBar() ;
         ab.setDisplayHomeAsUpEnabled(true);     // 위로 버튼 활성화
