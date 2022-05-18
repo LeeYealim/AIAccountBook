@@ -1,6 +1,6 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scroll_view"
+    android:id="@+id/scroll_view2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -63,7 +63,7 @@
                         <EditText
                             android:paddingLeft="5dp"
                             android:layout_weight="4"
-                            android:id="@+id/test2"
+                            android:id="@+id/textview_date"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:background="@drawable/edittext_rounded_corner_rectangle"
@@ -74,7 +74,6 @@
 
                         <ImageButton
                             android:id="@+id/btn_date"
-                            android:onClick="OnClickHandler"
                             android:layout_width="30dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
@@ -138,12 +137,14 @@
             android:gravity="center">
 
             <Button
+                android:id="@+id/btn_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="확인"/>
 
             <Button
+                android:id="@+id/btn_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
