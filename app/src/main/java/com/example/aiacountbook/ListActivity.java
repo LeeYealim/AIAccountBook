@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.aiacountbook.api.GetRequest;
+
 import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
@@ -30,10 +32,17 @@ public class ListActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);     // 위로 버튼 활성화
         ab.setTitle(title);                     // 앱바 타이틀 설정
 
+        new GetRequest(ListActivity.this,"https://e866-110-14-126-182.ngrok.io/accounts").execute();
+
+        //setListView();
+
+    }
+
+    private void setListView(){
         // 데이터 원본 준비
         ArrayList<Item> data = new ArrayList<Item>();
-        data.add(new Item("2022-05-05", "롯데리아", "10000"));
-        data.add(new Item("2022-05-05", "BBQ 치킨", "20000"));
+        data.add(new Item(1, "2022-05-05", "롯데리아", "10000"));
+        data.add(new Item(2, "2022-05-05", "BBQ 치킨", "20000"));
 
         //어댑터 생성
         adapter = new ListAdapter(this, R.layout.list_item, data);
@@ -51,7 +60,6 @@ public class ListActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
 }

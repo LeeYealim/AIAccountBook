@@ -5,12 +5,19 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.aiacountbook.Item;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -96,6 +103,32 @@ public class GetRequest extends AsyncTask<String, Void, String> {
         Log.d("yelim","onPostExecute()...");
         Log.d("yelim",result);
 
+        JSONObject jObject;
+        JSONArray jArray = null;
+        try {
+            jObject = new JSONObject(result);
+            jArray = jObject.getJSONArray("list");
+            Log.d("yelim",jArray.toString());
+            Log.d("yelim",jArray.getJSONObject(0).toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //ArrayList<Item> list = jsonToItemList(jArray);
+
     }
 
+    private ArrayList<Item> jsonToItemList(JSONArray jsonList) throws JSONException {
+        Log.d("yelim","jsonToItemList() 호출 ...");
+
+        ArrayList<Item> list = new ArrayList<Item>();
+
+        for(int i=0; i<jsonList.length(); i++){
+            JSONObject obj = jsonList.getJSONObject(i);
+        }
+
+        JSONObject j = jsonList.getJSONObject(0);
+
+        return null;
+    }
 }
