@@ -3,9 +3,15 @@ package com.example.aiacountbook.api;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.aiacountbook.Item;
+import com.example.aiacountbook.ListActivity;
+import com.example.aiacountbook.ListAdapter;
+import com.example.aiacountbook.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,11 +33,13 @@ public class GetRequest extends AsyncTask<String, Void, String> {
     protected URL url;
     final static String TAG = "AndroidAPITest";
     String urlStr;
+    String type;
 
     // 생성자
-    public GetRequest(Activity activity, String urlStr) {
+    public GetRequest(Activity activity, String urlStr, String type) {
         this.activity = activity;
         this.urlStr = urlStr;
+        this.type = type;
     }
 
     // execute() 호출 시 가장 먼저 1. onPreExecute() 호출
@@ -105,19 +113,45 @@ public class GetRequest extends AsyncTask<String, Void, String> {
 
         JSONObject jObject;
         JSONArray jArray = null;
-        try {
-            jObject = new JSONObject(result);
-            jArray = jObject.getJSONArray("list");
-            Log.d("yelim",jArray.toString());
-            Log.d("yelim",jArray.getJSONObject(0).toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
+        ArrayList<Item> list = null;
+
+        // 목록 화면에서의 GET 요청일 경우
+        if(type.equals("list")){
+            // 데이터 얻기
+            try {
+                jObject = new JSONObject(result);
+                jArray = jObject.getJSONArray("list");
+                //Log.d("yelim",jArray.toString());
+                //Log.d("yelim",jArray.getJSONObject(0).toString());
+
+                list = jsonToItemList(jArray);
+                //Log.d("yelim","만들어진 Item 배열");
+                //Log.d("yelim",list.get(0).place);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //어댑터 생성
+            ListAdapter adapter = new ListAdapter(activity, R.layout.list_item, list);
+
+            //어댑터 연결
+            ListView listView = (ListView)activity.findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View vClicked,
+                                        int position, long id) {
+
+                    String place = ((Item)adapter.getItem(position)).place;
+                    Toast.makeText(activity, place + " selected",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
         }
-
-        //ArrayList<Item> list = jsonToItemList(jArray);
-
     }
 
+    // Json 배열을 Item 객체 배열로 바꾸는 메소드
     private ArrayList<Item> jsonToItemList(JSONArray jsonList) throws JSONException {
         Log.d("yelim","jsonToItemList() 호출 ...");
 
@@ -125,10 +159,10 @@ public class GetRequest extends AsyncTask<String, Void, String> {
 
         for(int i=0; i<jsonList.length(); i++){
             JSONObject obj = jsonList.getJSONObject(i);
+            Item item = new Item(obj.getInt("idx"),obj.getString("date"),obj.getString("place"),obj.getString("price"));
+            list.add(item);
         }
 
-        JSONObject j = jsonList.getJSONObject(0);
-
-        return null;
+        return list;
     }
 }

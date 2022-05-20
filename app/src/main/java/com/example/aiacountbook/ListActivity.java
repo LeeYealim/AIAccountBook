@@ -32,7 +32,7 @@ public class ListActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);     // 위로 버튼 활성화
         ab.setTitle(title);                     // 앱바 타이틀 설정
 
-        new GetRequest(ListActivity.this,"https://e866-110-14-126-182.ngrok.io/accounts").execute();
+        new GetRequest(ListActivity.this,"https://e866-110-14-126-182.ngrok.io/accounts", "list").execute();
 
         //setListView();
 
@@ -55,7 +55,7 @@ public class ListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View vClicked,
                                     int position, long id) {
                 //   String name = (String) ((TextView)vClicked.findViewById(R.id.textItem1)).getText();
-                String title = ((Item)adapter.getItem(position)).title;
+                String title = ((Item)adapter.getItem(position)).place;
                 Toast.makeText(ListActivity.this, title + " selected",
                         Toast.LENGTH_SHORT).show();
             }

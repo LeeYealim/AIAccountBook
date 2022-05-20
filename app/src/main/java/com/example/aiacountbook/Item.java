@@ -3,15 +3,15 @@ package com.example.aiacountbook;
 // 캘린더에서 day 한 칸에 필요한 데이터 정의
 
 public class Item {
-    int idx;
-    String date;   // text
-    String title;    // text
-    String price;
+    public int idx;
+    public String date;   // text
+    public String place;    // text
+    public String price;
 
-    Item(int aIdx, String aDate, String aTitle, String aPrice) {
+    public Item(int aIdx, String aDate, String aPlace, String aPrice) {
         idx = aIdx;
         date = aDate;
-        title = aTitle;
+        place = aPlace;
         price = aPrice;
     }
 

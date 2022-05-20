@@ -56,7 +56,7 @@ public class ListAdapter extends BaseAdapter {
         date.setText(mItems.get(position).date);
 
         TextView title = (TextView) convertView.findViewById(R.id.list_title);
-        title.setText(mItems.get(position).title);
+        title.setText(mItems.get(position).place);
 
         TextView price = (TextView) convertView.findViewById(R.id.list_price);
         price.setText(mItems.get(position).price);
