@@ -8,9 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.aiacountbook.AiApplication;
 import com.example.aiacountbook.Item;
-import com.example.aiacountbook.ListActivity;
 import com.example.aiacountbook.ListAdapter;
 import com.example.aiacountbook.R;
 

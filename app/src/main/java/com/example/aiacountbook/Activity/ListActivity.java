@@ -1,16 +1,16 @@
-package com.example.aiacountbook;
+package com.example.aiacountbook.Activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.aiacountbook.Application.AiApplication;
+import com.example.aiacountbook.Item;
+import com.example.aiacountbook.ListAdapter;
+import com.example.aiacountbook.R;
 import com.example.aiacountbook.api.GetRequest;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.aiacountbook;
+package com.example.aiacountbook.Application;
 
 // 전역변수를 사용하기 위한 클래스
 

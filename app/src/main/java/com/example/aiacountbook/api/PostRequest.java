@@ -9,7 +9,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.aiacountbook.AddActivity;
 import com.example.aiacountbook.R;
 
 import org.json.JSONException;

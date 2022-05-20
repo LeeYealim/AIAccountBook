@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".AiApplication"
+        android:name=".Application.AiApplication"
 
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,15 +30,15 @@
             android:name=".ImageTestActivity"
             android:exported="false" />
         <activity
-            android:name=".ListActivity"
+            android:name=".Activity.ListActivity"
             android:exported="false"
-            android:parentActivityName=".CalendarActivity" />
+            android:parentActivityName=".Activity.CalendarActivity" />
         <activity
-            android:name=".AddActivity"
+            android:name=".Activity.AddActivity"
             android:exported="false"
-            android:parentActivityName=".CalendarActivity" />
+            android:parentActivityName=".Activity.CalendarActivity" />
         <activity
-            android:name=".CalendarActivity"
+            android:name=".Activity.CalendarActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

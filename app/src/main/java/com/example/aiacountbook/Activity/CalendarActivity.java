@@ -1,4 +1,4 @@
-package com.example.aiacountbook;
+package com.example.aiacountbook.Activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.aiacountbook.Application.AiApplication;
+import com.example.aiacountbook.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -148,7 +150,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         //startActivity(new Intent(this,ListActivity.class));
         //인텐트 선언 및 정의
-        Intent intent =new Intent(this,ListActivity.class);
+        Intent intent =new Intent(this, ListActivity.class);
         // 입력한 input값을 intent로 전달한다.
         intent.putExtra("title", ActionBarTitle);
         // 액티비티 이동
