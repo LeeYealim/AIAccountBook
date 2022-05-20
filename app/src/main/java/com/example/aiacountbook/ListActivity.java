@@ -31,8 +31,11 @@ public class ListActivity extends AppCompatActivity {
         ab = getSupportActionBar() ;
         ab.setDisplayHomeAsUpEnabled(true);     // 위로 버튼 활성화
         ab.setTitle(title);                     // 앱바 타이틀 설정
-
-        new GetRequest(ListActivity.this,"https://e866-110-14-126-182.ngrok.io/accounts", "list").execute();
+        
+        // 현재 달의 지출 내역 리스트 GET 요청 및 리스트 뷰 출력
+        String yearmonth = ((AiApplication) getApplication()).getHyphenYearMonth();
+        String uri = "https://e866-110-14-126-182.ngrok.io/accounts/"+yearmonth;
+        new GetRequest(ListActivity.this, uri, "list").execute();
 
         //setListView();
 
