@@ -89,8 +89,11 @@ public class CalendarActivity extends AppCompatActivity {
         final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
         final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
         
+        // 전역변수 년, 월 설정
+        ((AiApplication) getApplication()).setYearMonth(curYearFormat.format(date), curMonthFormat.format(date));
+
         // 앱바 설정
-        ActionBarTitle = curYearFormat.format(date) + "년 " + curMonthFormat.format(date) + "월";
+        ActionBarTitle =  ((AiApplication) getApplication()).getStrYearMonth();
         ab = getSupportActionBar() ;
         ab.setTitle(ActionBarTitle);
 
