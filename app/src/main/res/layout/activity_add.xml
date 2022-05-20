@@ -63,7 +63,7 @@
                         <EditText
                             android:paddingLeft="5dp"
                             android:layout_weight="4"
-                            android:id="@+id/textview_date"
+                            android:id="@+id/edit_date"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:background="@drawable/edittext_rounded_corner_rectangle"
@@ -96,12 +96,12 @@
 
                     <EditText
                         android:paddingLeft="5dp"
-                        android:id="@+id/edit_title"
+                        android:id="@+id/edit_place"
                         android:layout_width="200dp"
                         android:layout_height="40dp"
                         android:background="@drawable/edittext_rounded_corner_rectangle"
                         android:hint="장소"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:layout_marginRight="10dp"/>
 
                 </TableRow>
@@ -118,7 +118,7 @@
 
                     <EditText
                         android:paddingLeft="5dp"
-                        android:id="@+id/edit_date"
+                        android:id="@+id/edit_price"
                         android:layout_width="200dp"
                         android:layout_height="40dp"
                         android:background="@drawable/edittext_rounded_corner_rectangle"

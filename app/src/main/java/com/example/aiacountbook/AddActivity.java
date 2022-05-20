@@ -4,10 +4,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,13 +14,24 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferNetworkLossHandler;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3Client;
+
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,6 +47,7 @@ public class AddActivity extends AppCompatActivity {
 
     private String mPhotoFileName = null;
     private File mPhotoFile = null;
+    private Uri imageUri = null;
 
 
     private ActionBar ab;                   // 앱바
@@ -52,11 +62,36 @@ public class AddActivity extends AppCompatActivity {
         ab.setTitle("영수증 등록");               // 앱바 타이틀 설정
 
         // 취소 버튼 클릭 시 화면 종료
-        Button btn = findViewById(R.id.btn_close);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button Closebtn = findViewById(R.id.btn_close);
+        Closebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        // 확인 버튼 클릭 시 화면 종료
+        Button btn_ok = findViewById(R.id.btn_ok);
+        btn_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("yelim","확인 버튼 클릭");
+
+                EditText edit_date = (EditText)findViewById(R.id.edit_date);
+                String str_date = edit_date.getText().toString();
+
+                EditText edit_place = (EditText)findViewById(R.id.edit_place);
+                String str_place = edit_date.getText().toString();
+
+                EditText edit_price = (EditText)findViewById(R.id.edit_price);
+                String str_price = edit_date.getText().toString();
+                
+                if(str_date.equals("") && str_place.equals("") && str_price.equals("")){
+                    Log.d("yelim","값을 입력하라는 토스트 메세지 필요");
+                    return;
+                }
+                Log.d("yelim","값 다 있음");
+                //uploadWithTransferUtilty(mPhotoFile.getName(), mPhotoFile);
             }
         });
 
@@ -72,8 +107,8 @@ public class AddActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                     {
-                        TextView textView_Date = (TextView)findViewById(R.id.textview_date);
-                        textView_Date.setText(String.format("%d-%d-%d ", year ,monthOfYear+1,dayOfMonth));
+                        EditText edit_date = (EditText)findViewById(R.id.edit_date);
+                        edit_date.setText(String.format("%d-%d-%d ", year ,monthOfYear+1,dayOfMonth));
                     }
                 };
 
@@ -101,9 +136,6 @@ public class AddActivity extends AppCompatActivity {
     }
     
     
-    
-    
-    
 
     private String currentDateFormat() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
@@ -123,7 +155,7 @@ public class AddActivity extends AppCompatActivity {
 
             if (mPhotoFile != null) {
                 //2. 생성된 파일 객체에 대한 Uri 객체를 얻기
-                Uri imageUri = FileProvider.getUriForFile(this, "com.example.aiacountbook.fileprovider", mPhotoFile);
+                imageUri = FileProvider.getUriForFile(this, "com.example.aiacountbook.fileprovider", mPhotoFile);
 
                 //3. Uri 객체를 Extras를 통해 카메라 앱으로 전달
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -143,9 +175,7 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         Log.d("yelim","onActivityResult() 호출");
-
 
         // 이미지 캡처 실행 후 사진 결과 처리하는 방법
         // 리스트 뷰에 추가 이미지 뷰에도 보이게 추가
@@ -168,5 +198,42 @@ public class AddActivity extends AppCompatActivity {
             } else
                 Toast.makeText(getApplicationContext(), "mPhotoFile is null", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+
+
+    // AWS 파일 전송 코드
+    public void uploadWithTransferUtilty(String fileName, File file) {
+        Log.d("yelim","uploadWithTransferUtilty() 호출 ...");
+
+        // AIUser
+        AWSCredentials awsCredentials = new BasicAWSCredentials("AKIA6CYUKORF5PGRSLWA", "jIz3DG5xKym6VP473xIRNZAOlABrQ+j9GSXXOhtU");	// IAM 생성하며 받은 것 입력
+        AmazonS3Client s3Client = new AmazonS3Client(awsCredentials, Region.getRegion(Regions.AP_NORTHEAST_2));
+
+        TransferUtility transferUtility = TransferUtility.builder().s3Client(s3Client).context(AddActivity.this.getApplicationContext()).build();
+        TransferNetworkLossHandler.getInstance(AddActivity.this.getApplicationContext());
+
+        TransferObserver uploadObserver = transferUtility.upload("hansung-ai-bucket", fileName, file);	// (bucket api, file이름, file객체)
+
+        uploadObserver.setTransferListener(new TransferListener() {
+            @Override
+            public void onStateChanged(int id, TransferState state) {
+                Log.d("yelim", "onStateChanged() ...");
+                if (state == TransferState.COMPLETED) {
+                    Log.d("yelim", "onStateChanged() COMPLETED ...");
+                    // Handle a completed upload
+                }
+            }
+            @Override
+            public void onProgressChanged(int id, long current, long total) {
+                int done = (int) (((double) current / total) * 100.0);
+                Log.d("yelim", "UPLOAD - - ID: $id, percent done = $done");
+            }
+            @Override
+            public void onError(int id, Exception ex) {
+                Log.d("yelim", "UPLOAD ERROR - - ID: $id - - EX:" + ex.toString());
+            }
+        });
     }
 }
