@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.example.aiacountbook.Adapter.ListAdapter;
-import com.example.aiacountbook.Application.AiApplication;
+import com.example.aiacountbook.adapter.ListAdapter;
+import com.example.aiacountbook.application.AiApplication;
 import com.example.aiacountbook.api.GetRequest;
 
 import java.util.ArrayList;

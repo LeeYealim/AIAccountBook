@@ -1,4 +1,4 @@
-package com.example.aiacountbook.Adapter;
+package com.example.aiacountbook.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;

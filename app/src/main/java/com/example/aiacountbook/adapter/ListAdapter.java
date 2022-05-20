@@ -1,4 +1,4 @@
-package com.example.aiacountbook.Adapter;
+package com.example.aiacountbook.adapter;
 
 //public class ListAdapter {
 //}

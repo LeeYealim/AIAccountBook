@@ -17,7 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.example.aiacountbook.Application.AiApplication;
+import com.example.aiacountbook.application.AiApplication;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;

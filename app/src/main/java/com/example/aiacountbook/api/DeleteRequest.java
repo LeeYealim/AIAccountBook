@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.aiacountbook.Adapter.ListAdapter;
+import com.example.aiacountbook.adapter.ListAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
