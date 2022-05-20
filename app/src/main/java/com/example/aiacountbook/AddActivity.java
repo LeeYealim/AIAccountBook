@@ -30,6 +30,10 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.example.aiacountbook.api.PostRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -81,17 +85,27 @@ public class AddActivity extends AppCompatActivity {
                 String str_date = edit_date.getText().toString();
 
                 EditText edit_place = (EditText)findViewById(R.id.edit_place);
-                String str_place = edit_date.getText().toString();
+                String str_place = edit_place.getText().toString();
 
                 EditText edit_price = (EditText)findViewById(R.id.edit_price);
-                String str_price = edit_date.getText().toString();
+                String str_price = edit_price.getText().toString();
                 
                 if(str_date.equals("") && str_place.equals("") && str_price.equals("")){
-                    Log.d("yelim","값을 입력하라는 토스트 메세지 필요");
+                    Toast.makeText(AddActivity.this, "입력값을 확인하세요.",
+                        Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Log.d("yelim","값 다 있음");
-                //uploadWithTransferUtilty(mPhotoFile.getName(), mPhotoFile);
+                // 데이터 저장 POST API 호출
+                JSONObject payload = new JSONObject();
+                try {
+                    payload.put("date", str_date);
+                    payload.put("place", str_place);
+                    payload.put("price", str_price);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String uri = "https://e866-110-14-126-182.ngrok.io/accounts";
+                new PostRequest(AddActivity.this, uri, "insert").execute(payload);
             }
         });
 
@@ -193,6 +207,19 @@ public class AddActivity extends AppCompatActivity {
 
                 // URI를 뽑아와서 그 URI 기반으로 URI가 가리키는 파일 내용을 이미지뷰에 표시
                 imageView.setImageURI(Uri.fromFile(mPhotoFile));
+                
+                // AWS 버킷에 사진 업로드
+                uploadWithTransferUtilty(mPhotoFileName, mPhotoFile);
+
+                // 이미지 텍스트 인식 POST API 호출
+                JSONObject payload = new JSONObject();
+                try {
+                    payload.put("img", mPhotoFileName);     // 이미지 파일명 바디에 넣어 전송
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String uri = "https://e866-110-14-126-182.ngrok.io/recognition";
+                new PostRequest(AddActivity.this, uri, "recognition").execute(payload);
 
                 // mAdapter.addItem(new MediaItem(MediaItem.SDCARD, mPhotoFileName, MediaItem.IMAGE));
             } else

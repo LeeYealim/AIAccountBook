@@ -6,8 +6,13 @@ package com.example.aiacountbook.api;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.aiacountbook.AddActivity;
+import com.example.aiacountbook.R;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -27,11 +32,13 @@ public class PostRequest extends AsyncTask<JSONObject, Void, String> {
     protected URL url;
     final static String TAG = "AndroidAPITest";
     String urlStr;
+    String type;
 
-    // 생성자
-    public PostRequest(Activity activity, String urlStr) {
+    // 생성자 - type에 따라 결과 처리 부분 다름
+    public PostRequest(Activity activity, String urlStr, String type) {
         this.activity = activity;
         this.urlStr = urlStr;
+        this.type = type;
     }
 
     // execute() 호출 시 가장 먼저 1. onPreExecute() 호출
@@ -108,6 +115,57 @@ public class PostRequest extends AsyncTask<JSONObject, Void, String> {
         // result 가 응답임
         Log.d("yelim","onPostExecute()...");
         Log.d("yelim",result);
-    }
 
+        if(type.equals("recognition")){
+            Log.d("yelim","recognition 결과 처리 ... ");
+
+            JSONObject jObject = null;
+            String date = "", place = "", price = "";
+            try {
+                jObject = new JSONObject(result);
+                date = jObject.getString("date");
+                place = jObject.getString("place");
+                price = jObject.getString("price");
+                Log.d("yelim", "파싱 값 : " + date +" "+place + " "+price);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            EditText edit_date = (EditText)activity.findViewById(R.id.edit_date);
+            edit_date.setText(date);
+
+            EditText edit_place = (EditText)activity.findViewById(R.id.edit_place);
+            edit_place.setText(place);
+
+            EditText edit_price = (EditText)activity.findViewById(R.id.edit_price);
+            edit_price.setText(price);
+        }
+        else if(type.equals("insert")){
+            Log.d("yelim","insert 결과 처리 ... ");
+
+            JSONObject jObject = null;
+            String api_result = "";
+            try {
+                jObject = new JSONObject(result);
+                api_result = jObject.getString("result");
+                Log.d("yelim", "result 파싱 값 : " + api_result);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if(api_result.equals("SUCCESS")){
+                Toast.makeText(activity, "저장되었습니다.",
+                        Toast.LENGTH_SHORT).show();
+                activity.finish();
+            }
+            else{
+                Toast.makeText(activity, "오류가 발생했습니다.",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Log.d("yelim","else 결과 처리 ... ");
+
+        }
+    }
 }
