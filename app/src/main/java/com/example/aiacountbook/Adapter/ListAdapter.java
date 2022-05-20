@@ -1,4 +1,4 @@
-package com.example.aiacountbook;
+package com.example.aiacountbook.Adapter;
 
 //public class ListAdapter {
 //}
@@ -10,10 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.aiacountbook.Item;
+import com.example.aiacountbook.R;
 import com.example.aiacountbook.api.DeleteRequest;
 
 import java.util.ArrayList;

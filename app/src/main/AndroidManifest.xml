@@ -27,18 +27,15 @@
 
 
         <activity
-            android:name=".ImageTestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.ListActivity"
+            android:name=".ListActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.CalendarActivity" />
+            android:parentActivityName=".CalendarActivity" />
         <activity
-            android:name=".Activity.AddActivity"
+            android:name=".AddActivity"
             android:exported="false"
-            android:parentActivityName=".Activity.CalendarActivity" />
+            android:parentActivityName=".CalendarActivity" />
         <activity
-            android:name=".Activity.CalendarActivity"
+            android:name=".CalendarActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

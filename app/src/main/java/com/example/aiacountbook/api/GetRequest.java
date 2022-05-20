@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.aiacountbook.Item;
-import com.example.aiacountbook.ListAdapter;
+import com.example.aiacountbook.Adapter.ListAdapter;
 import com.example.aiacountbook.R;
 
 import org.json.JSONArray;

@@ -1,4 +1,4 @@
-package com.example.aiacountbook.Activity;
+package com.example.aiacountbook;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.aiacountbook.Application.AiApplication;
-import com.example.aiacountbook.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;

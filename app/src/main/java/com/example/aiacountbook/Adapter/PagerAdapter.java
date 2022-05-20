@@ -1,10 +1,10 @@
-package com.example.aiacountbook;
+package com.example.aiacountbook.Adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-
+import com.example.aiacountbook.CalendarFragment;
 
 
 // FragmentStateAdapter 는 두 개의 메소드 재정의 필요

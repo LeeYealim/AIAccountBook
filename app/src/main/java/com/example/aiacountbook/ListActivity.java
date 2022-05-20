@@ -1,4 +1,4 @@
-package com.example.aiacountbook.Activity;
+package com.example.aiacountbook;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,10 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.aiacountbook.Adapter.ListAdapter;
 import com.example.aiacountbook.Application.AiApplication;
-import com.example.aiacountbook.Item;
-import com.example.aiacountbook.ListAdapter;
-import com.example.aiacountbook.R;
 import com.example.aiacountbook.api.GetRequest;
 
 import java.util.ArrayList;

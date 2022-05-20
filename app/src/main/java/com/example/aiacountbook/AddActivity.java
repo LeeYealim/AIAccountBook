@@ -1,4 +1,4 @@
-package com.example.aiacountbook.Activity;
+package com.example.aiacountbook;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +30,6 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.example.aiacountbook.R;
 import com.example.aiacountbook.api.PostRequest;
 
 import org.json.JSONException;
