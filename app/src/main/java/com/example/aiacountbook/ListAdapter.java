@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class ListAdapter extends BaseAdapter {
     private Context mContext;
     private int mResource;
-    private ArrayList<DayItem> mItems = new ArrayList<DayItem>();
+    private ArrayList<Item> mItems = new ArrayList<Item>();
 
-    public ListAdapter(Context context, int resource, ArrayList<DayItem> items) {
+    public ListAdapter(Context context, int resource, ArrayList<Item> items) {
         mContext = context;
         mItems = items;
         mResource = resource;

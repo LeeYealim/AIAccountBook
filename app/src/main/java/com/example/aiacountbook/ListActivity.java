@@ -31,9 +31,9 @@ public class ListActivity extends AppCompatActivity {
         ab.setTitle(title);                     // 앱바 타이틀 설정
 
         // 데이터 원본 준비
-        ArrayList<DayItem> data = new ArrayList<DayItem>();
-        data.add(new DayItem("2022-05-05", "롯데리아", "10000"));
-        data.add(new DayItem("2022-05-05", "BBQ 치킨", "20000"));
+        ArrayList<Item> data = new ArrayList<Item>();
+        data.add(new Item("2022-05-05", "롯데리아", "10000"));
+        data.add(new Item("2022-05-05", "BBQ 치킨", "20000"));
 
         //어댑터 생성
         adapter = new ListAdapter(this, R.layout.list_item, data);
@@ -46,7 +46,7 @@ public class ListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View vClicked,
                                     int position, long id) {
                 //   String name = (String) ((TextView)vClicked.findViewById(R.id.textItem1)).getText();
-                String title = ((DayItem)adapter.getItem(position)).title;
+                String title = ((Item)adapter.getItem(position)).title;
                 Toast.makeText(ListActivity.this, title + " selected",
                         Toast.LENGTH_SHORT).show();
             }
