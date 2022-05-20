@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -53,16 +54,20 @@ public class ListActivity extends AppCompatActivity {
         //어댑터 연결
         ListView listView = (ListView)findViewById(R.id.listView);
         listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View vClicked,
-                                    int position, long id) {
-                //   String name = (String) ((TextView)vClicked.findViewById(R.id.textItem1)).getText();
-                String title = ((Item)adapter.getItem(position)).place;
-                Toast.makeText(ListActivity.this, title + " selected",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+        
+//        // 리스트뷰 아이템 클릭 이벤트가 왜 안먹히지
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View vClicked,
+//                                    int position, long id) {
+//
+//                Log.d("yelim","리스트뷰 아이템 클릭");
+//
+//                //   String name = (String) ((TextView)vClicked.findViewById(R.id.textItem1)).getText();
+//                String title = ((Item)adapter.getItem(position)).place;
+//                Toast.makeText(ListActivity.this, title + " selected",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
 }

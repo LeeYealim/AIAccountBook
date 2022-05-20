@@ -3,19 +3,25 @@ package com.example.aiacountbook;
 //public class ListAdapter {
 //}
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.aiacountbook.api.DeleteRequest;
 
 import java.util.ArrayList;
 
 public class ListAdapter extends BaseAdapter {
     private Context mContext;
     private int mResource;
-    private ArrayList<Item> mItems = new ArrayList<Item>();
+    public ArrayList<Item> mItems = new ArrayList<Item>();
 
     public ListAdapter(Context context, int resource, ArrayList<Item> items) {
         mContext = context;
@@ -60,6 +66,19 @@ public class ListAdapter extends BaseAdapter {
 
         TextView price = (TextView) convertView.findViewById(R.id.list_price);
         price.setText(mItems.get(position).price);
+
+        ImageButton btn_delete = (ImageButton) convertView.findViewById(R.id.btn_delete);
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("yelim", "DELETE 버튼 클릭");
+                Log.d("yelim", "position : " + position);
+                Log.d("yelim", "선택 : " + mItems.get(position).place + " " + mItems.get(position).idx);
+                
+                // 삭제 API 호출
+                String uri = "https://e866-110-14-126-182.ngrok.io/accounts/" + mItems.get(position).idx;
+                new DeleteRequest((Activity) mContext, uri, ListAdapter.this, position).execute();
+            }
+        });
 
         return convertView;
     }
