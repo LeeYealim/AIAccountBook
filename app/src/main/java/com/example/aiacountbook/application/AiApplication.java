@@ -9,6 +9,8 @@ public class AiApplication extends Application {
     private String month;
 
     public String getHyphenYearMonth() {
+        if(month.length()<2)
+            return year+"-0"+month;
         return year+"-"+month;
     }
 

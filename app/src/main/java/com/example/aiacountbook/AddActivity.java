@@ -62,7 +62,7 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
 
         ab = getSupportActionBar() ;
-        ab.setDisplayHomeAsUpEnabled(true);     // 위로 버튼 활성화
+        //ab.setDisplayHomeAsUpEnabled(true);     // 위로 버튼 활성화
         ab.setTitle("영수증 등록");               // 앱바 타이틀 설정
 
         // 취소 버튼 클릭 시 화면 종료

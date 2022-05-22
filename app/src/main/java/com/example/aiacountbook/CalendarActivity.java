@@ -72,15 +72,16 @@ public class CalendarActivity extends AppCompatActivity {
         // 전역 변수에 현재 년, 월 설정
         //((AiApplication) getApplication()).setYearMonth(""+calendar.get(Calendar.YEAR),""+(calendar.get(Calendar.MONTH)+1));
 
-        // 앱바 설정
-        ActionBarTitle =  calendar.get(Calendar.YEAR)+"년 "+(calendar.get(Calendar.MONTH)+1+"월");
-        getSupportActionBar().setTitle(ActionBarTitle);
-
         // 1:일, 2:월, ....
         year = calendar.get(Calendar.YEAR);
         month = (calendar.get(Calendar.MONTH)+1);
+        ((AiApplication) getApplication()).setYearMonth(""+year, ""+month);
         int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
         Log.d("yelim", "year:" + year + " month:"+(month+1) + " 요일:"+dayNum);
+
+        // 앱바 설정
+        ActionBarTitle =  ((AiApplication) getApplication()).getStrYearMonth();
+        getSupportActionBar().setTitle(ActionBarTitle);
 
         // 뷰페이저 포지션 설정
         int idx = year*12 + month - 2000*12;      // 달은 -1 적게 나옴
@@ -94,6 +95,7 @@ public class CalendarActivity extends AppCompatActivity {
         // 뷰페이저 페이지 설정
         //vpPager.setCurrentItem(idx);      // 원래 이게 맞는데 -11~10정도 오류남..
         vpPager.setCurrentItem(idx+10);
+        //vpPager.setCurrentItem(3);
 
         // 뷰 페이저 페이지 변경 이벤트
         vpPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -103,6 +105,7 @@ public class CalendarActivity extends AppCompatActivity {
                 // 앱바 설정
                 int year = 2000 + position/12;
                 int month = position%12+1;
+                ((AiApplication) getApplication()).setYearMonth(""+year, ""+month);
                 ActionBarTitle =  year+"년 "+month+"월";
                 getSupportActionBar().setTitle(ActionBarTitle);
             }
@@ -125,15 +128,13 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d("yelim","onOptionsItemSelected() 클릭....");
-
-//        //startActivity(new Intent(this,ListActivity.class));
-//        //인텐트 선언 및 정의
+        //startActivity(new Intent(this,ListActivity.class));
+        //인텐트 선언 및 정의
         Intent intent =new Intent(this, ListActivity.class);
-//        // 입력한 input값을 intent로 전달한다.
-//        intent.putExtra("title", ActionBarTitle);
-//        // 액티비티 이동
-//        startActivity(intent);
-
+        // 입력한 input값을 intent로 전달한다.
+        intent.putExtra("title", ActionBarTitle);
+        // 액티비티 이동
+        startActivity(intent);
         return true;
     }
 

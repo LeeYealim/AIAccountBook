@@ -44,6 +44,7 @@ public class GetRequest extends AsyncTask<String, Void, String> {
     // execute() 호출 시 가장 먼저 1. onPreExecute() 호출
     @Override
     protected void onPreExecute() {
+        Log.d("yelim","onPreExecute()...");
         try {
             Log.e(TAG, urlStr);
             url = new URL(urlStr);
@@ -58,6 +59,7 @@ public class GetRequest extends AsyncTask<String, Void, String> {
     // 그 다음 2. doInBackground() 호출
     @Override
     protected String doInBackground(String... strings) {
+        Log.d("yelim","doInBackground()...");
         StringBuffer output = new StringBuffer();
 
         try {

@@ -63,6 +63,8 @@ public class CalendarFragment extends Fragment {
         int year = 2000 + position/12;
         int month = position%12 + 1;
 
+
+        // 그리드뷰 어댑터 자체를 주석처리하고 GET API 호출 후에 할까...
         GridAdapter adapter = new GridAdapter(getActivity(), R.layout.calendar_item_day, year, month);
 
         // 여기서 API 호출할까... adapter 내의 mItems 배열 업데이트 하면 될 것 같은데..
