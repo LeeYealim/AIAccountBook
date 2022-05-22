@@ -62,26 +62,11 @@ public class CalendarFragment extends Fragment {
 
         int year = 2000 + position/12;
         int month = position%12 + 1;
-        //Log.d("yelim","생성중인 뷰의 포지션/년/월 : "+position+"/"+year+"/"+month);
-//
-//        // 그리드뷰에 표시할 그리드뷰 어댑터 생성해야 함
-//        // 일단 그리드 뷰 생성하고 나서 GET 리퀘스트 호출 후에 변경사항 공지하는 게 좋을 듯
-//
-//        calendar = Calendar.getInstance();
-//        calendar.set(year, month, 1);
-//        // 이번 달 1일 무슨 요일인지 판단 calendar.set(Year,Month,Day)
-//        // 1:일, 2:월, ....
-//        int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
-//        //1일 - 요일 매칭 시키기 위해 공백 add
-//        ArrayList<GridItem> list = new ArrayList<GridItem>();
-//        for (int i = 1; i < dayNum; i++) {
-//            list.add(new GridItem(""+position,  ""+year, ""+month));
-//        }
-//        for (int i = 0; i < calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-//            list.add(new GridItem("" + (i + 1),  "", ""));
-//        }
 
         GridAdapter adapter = new GridAdapter(getActivity(), R.layout.calendar_item_day, year, month);
+
+        // 여기서 API 호출할까... adapter 내의 mItems 배열 업데이트 하면 될 것 같은데..
+
 
         //어댑터 연결
         GridView gridView = (GridView)view.findViewById(R.id.gridview);

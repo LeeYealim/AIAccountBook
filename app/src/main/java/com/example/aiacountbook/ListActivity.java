@@ -36,36 +36,5 @@ public class ListActivity extends AppCompatActivity {
         String uri = "https://e866-110-14-126-182.ngrok.io/accounts/"+yearmonth;
         new GetRequest(ListActivity.this, uri, "list").execute();
 
-        //setListView();
-
     }
-
-    private void setListView(){
-        // 데이터 원본 준비
-        ArrayList<ListItem> data = new ArrayList<ListItem>();
-        data.add(new ListItem(1, "2022-05-05", "롯데리아", "10000"));
-        data.add(new ListItem(2, "2022-05-05", "BBQ 치킨", "20000"));
-
-        //어댑터 생성
-        adapter = new ListAdapter(this, R.layout.list_item, data);
-
-        //어댑터 연결
-        ListView listView = (ListView)findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-        
-//        // 리스트뷰 아이템 클릭 이벤트가 왜 안먹히지
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> parent, View vClicked,
-//                                    int position, long id) {
-//
-//                Log.d("yelim","리스트뷰 아이템 클릭");
-//
-//                //   String name = (String) ((TextView)vClicked.findViewById(R.id.textItem1)).getText();
-//                String title = ((Item)adapter.getItem(position)).place;
-//                Toast.makeText(ListActivity.this, title + " selected",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    }
-
 }

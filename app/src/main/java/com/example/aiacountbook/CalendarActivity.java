@@ -37,6 +37,8 @@ public class CalendarActivity extends AppCompatActivity {
     private String ActionBarTitle;
     ViewPager2 vpPager;
     PagerAdapter adapter;
+    int year;
+    int month;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +77,14 @@ public class CalendarActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(ActionBarTitle);
 
         // 1:일, 2:월, ....
+        year = calendar.get(Calendar.YEAR);
+        month = (calendar.get(Calendar.MONTH)+1);
         int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
-        Log.d("yelim","요일 : " + dayNum);
-        Log.d("yelim", "year = " + calendar.get(Calendar.YEAR));
-        Log.d("yelim", "month = " + (calendar.get(Calendar.MONTH)+1));     // 달은 -1 적게 나옴
+        Log.d("yelim", "year:" + year + " month:"+(month+1) + " 요일:"+dayNum);
 
         // 뷰페이저 포지션 설정
-        int idx = calendar.get(Calendar.YEAR)*12 + calendar.get(Calendar.MONTH) - 2000*12;      // 달은 -1 적게 나옴
-        Log.d("yelim","------------------------------------n : " + idx);
-
+        int idx = year*12 + month - 2000*12;      // 달은 -1 적게 나옴
+        Log.d("yelim","------------------------------------ 초기 포지션(year*12+month(0부터)-2000*12) : " + idx);
 
         // 뷰 페이저랑 프래그먼트 어댑터 연결
         vpPager = findViewById(R.id.vpPager);
@@ -91,8 +92,8 @@ public class CalendarActivity extends AppCompatActivity {
         vpPager.setAdapter(adapter);
 
         // 뷰페이저 페이지 설정
-        //vpPager.setCurrentItem(idx);      // 원래 이게 맞는데 -11정도 오류남..
-        vpPager.setCurrentItem(idx+11);
+        //vpPager.setCurrentItem(idx);      // 원래 이게 맞는데 -11~10정도 오류남..
+        vpPager.setCurrentItem(idx+10);
 
         // 뷰 페이저 페이지 변경 이벤트
         vpPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -107,7 +108,9 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
 
-
+//        // 뷰페이저 페이지 설정 여기에 하면 계속 자동으로 스와이프 되는 오류 남 !!!!!!!
+//        //vpPager.setCurrentItem(idx);      // 원래 이게 맞는데 -11정도 오류남..
+//        vpPager.setCurrentItem(idx+11);
     }
 
     // 메뉴 --------------------------------------------------
@@ -121,113 +124,17 @@ public class CalendarActivity extends AppCompatActivity {
     // 메뉴 선택 시 액션
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("yelim","onOptionsItemSelected() 클릭....");
 
-        //startActivity(new Intent(this,ListActivity.class));
-        //인텐트 선언 및 정의
+//        //startActivity(new Intent(this,ListActivity.class));
+//        //인텐트 선언 및 정의
         Intent intent =new Intent(this, ListActivity.class);
-        // 입력한 input값을 intent로 전달한다.
-        intent.putExtra("title", ActionBarTitle);
-        // 액티비티 이동
-        startActivity(intent);
+//        // 입력한 input값을 intent로 전달한다.
+//        intent.putExtra("title", ActionBarTitle);
+//        // 액티비티 이동
+//        startActivity(intent);
 
         return true;
     }
-    // 메뉴 --------------------------------------------------
 
-
-
-
-//
-//    /**
-//     * 해당 월에 표시할 일 수 구함
-//     *
-//     * @param month
-//     */
-//    private void setCalendarDate(int month) {
-//        calendar.set(Calendar.MONTH, month - 1);
-//
-//        for (int i = 0; i < calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
-//            dayList.add("" + (i + 1));
-//        }
-//
-//    }
-//
-//
-//    // 그리드 뷰 어댑터
-//    // 여기에서 일수 칸에 데이터 셋팅
-//    private class GridAdapter extends BaseAdapter {
-//
-//        private final List<String> dayList;
-//        private final LayoutInflater inflater;
-//        private final List<String> valList;
-//
-//        /**
-//         * 생성자
-//         *  @param context
-//         * @param list
-//         * @param list2
-//         */
-//        public GridAdapter(Context context, List<String> list, List<String> list2) {
-//            this.dayList = list;
-//            this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            this.valList = list2;
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return dayList.size();
-//        }
-//
-//        @Override
-//        public String getItem(int position) {
-//            return dayList.get(position);
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//
-//            ViewHolder holder = null;
-//
-//            if (convertView == null) {
-//                convertView = inflater.inflate(R.layout.calendar_item_day, parent, false);
-//                holder = new ViewHolder();
-//
-//                holder.tvItemGridView = (TextView)convertView.findViewById(R.id.textview_day);
-//                holder.tv_count = (TextView)convertView.findViewById(R.id.textview_count);
-//                holder.tv_price = (TextView)convertView.findViewById(R.id.textview_total);
-//
-//                convertView.setTag(holder);
-//            } else {
-//                holder = (ViewHolder)convertView.getTag();
-//            }
-//            holder.tvItemGridView.setText("" + getItem(position));
-//
-//            // 임의로 값 집어 넣음
-//            if(getItem(position).equals("5")){
-//                holder.tv_count.setText("2건");
-//                holder.tv_price.setText("30000원");
-//            }
-//
-//            //해당 날짜 텍스트 컬러,배경 변경
-//            calendar = Calendar.getInstance();
-//            //오늘 day 가져옴
-//            Integer today = calendar.get(Calendar.DAY_OF_MONTH);
-//            String sToday = String.valueOf(today);
-//            if (sToday.equals(getItem(position))) { //오늘 day 텍스트 컬러 변경
-//                holder.tvItemGridView.setTextColor(getResources().getColor(R.color.pink));
-//            }
-//            return convertView;
-//        }
-//    }
-//
-//    public static class ViewHolder {
-//        TextView tvItemGridView;
-//        TextView tv_count;
-//        TextView tv_price;
-//    }
 }
