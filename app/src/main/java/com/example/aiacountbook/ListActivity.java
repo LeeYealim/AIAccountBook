@@ -29,7 +29,7 @@ public class ListActivity extends AppCompatActivity {
 
         // 앱바 설정
         ab = getSupportActionBar() ;
-        //ab.setDisplayHomeAsUpEnabled(true);     // 위로 버튼 활성화
+        ab.setDisplayHomeAsUpEnabled(false);     // 위로 버튼 비활성화
         ab.setTitle(title);                     // 앱바 타이틀 설정
 
         // 현재 달의 지출 내역 리스트 GET 요청 및 리스트 뷰 출력
