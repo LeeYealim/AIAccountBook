@@ -73,7 +73,7 @@ public class CalendarFragment extends Fragment {
         GridView gridView = (GridView)view.findViewById(R.id.gridview);
         gridView.setAdapter(adapter);
 
-        String uri = "https://ce2a-110-14-126-182.ngrok.io/calendars/"+year+"-"+str_month;
+        String uri = "https://ba0c-110-14-126-182.ngrok.io/calendars/"+year+"-"+str_month;
         Log.d("yelim","uri    :     "+uri);
         new GridGetRequest(getActivity(), uri, "calendar", adapter, year, month).execute();
         

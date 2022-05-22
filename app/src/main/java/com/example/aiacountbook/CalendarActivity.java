@@ -45,7 +45,6 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-
         //플로팅 버튼 클릭 시 영수증 등록 액티비티 실행
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.btn_add);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +93,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         // 뷰페이저 페이지 설정
         //vpPager.setCurrentItem(idx);      // 원래 이게 맞는데 -11~10정도 오류남..
-        vpPager.setCurrentItem(idx);
+        vpPager.setCurrentItem(idx+10);
         //vpPager.setCurrentItem(3);
 
         // 뷰 페이저 페이지 변경 이벤트

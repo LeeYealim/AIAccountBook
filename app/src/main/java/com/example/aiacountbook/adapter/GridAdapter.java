@@ -18,9 +18,10 @@ import java.util.Calendar;
 public class GridAdapter extends BaseAdapter {
     private Context mContext;
     private int mResource;
-    private  ArrayList<GridItem> mItems;
-    private int year;       // 실제 년
-    private int month;      // 실제 월(0부터 시작x)
+    public  ArrayList<GridItem> mItems;
+    public int year;       // 실제 년
+    public int month;      // 실제 월(0부터 시작x)
+    public int dayNum;
 
     public GridAdapter(Context context, int resource, int year, int month) {
         mContext = context;
@@ -34,7 +35,7 @@ public class GridAdapter extends BaseAdapter {
         calendar.set(year, month-1, 1);
         // 이번 달 1일 무슨 요일인지 판단 calendar.set(Year,Month,Day)
         // 1:일, 2:월, ....
-        int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
+        dayNum = calendar.get(Calendar.DAY_OF_WEEK);
         //1일 - 요일 매칭 시키기 위해 공백 add
         ArrayList<GridItem> list = new ArrayList<GridItem>();
         for (int i = 1; i < dayNum; i++) {
