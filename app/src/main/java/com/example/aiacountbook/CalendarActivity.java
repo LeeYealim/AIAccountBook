@@ -94,7 +94,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         // 뷰페이저 페이지 설정
         //vpPager.setCurrentItem(idx);      // 원래 이게 맞는데 -11~10정도 오류남..
-        vpPager.setCurrentItem(idx+10);
+        vpPager.setCurrentItem(idx);
         //vpPager.setCurrentItem(3);
 
         // 뷰 페이저 페이지 변경 이벤트

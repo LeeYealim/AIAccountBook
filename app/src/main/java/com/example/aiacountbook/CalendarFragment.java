@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.example.aiacountbook.adapter.GridAdapter;
+import com.example.aiacountbook.api.GetRequest;
+import com.example.aiacountbook.api.GridGetRequest;
+import com.example.aiacountbook.application.AiApplication;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,19 +63,21 @@ public class CalendarFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        int year = 2000 + position/12;
         int month = position%12 + 1;
-
-
-        // 그리드뷰 어댑터 자체를 주석처리하고 GET API 호출 후에 할까...
+        int year = (2000+position/12);
+        String str_month = (month<10) ? "0"+month : ""+month;
+        
+        // 그리드뷰 어댑터 생성
         GridAdapter adapter = new GridAdapter(getActivity(), R.layout.calendar_item_day, year, month);
-
-        // 여기서 API 호출할까... adapter 내의 mItems 배열 업데이트 하면 될 것 같은데..
-
-
-        //어댑터 연결
+        //어댑터 연결 -- 로딩이 길어서 먼저 연결함... 일수라도 보이게...
         GridView gridView = (GridView)view.findViewById(R.id.gridview);
         gridView.setAdapter(adapter);
+
+        String uri = "https://ce2a-110-14-126-182.ngrok.io/calendars/"+year+"-"+str_month;
+        Log.d("yelim","uri    :     "+uri);
+        new GridGetRequest(getActivity(), uri, "calendar", adapter, year, month).execute();
+        
+        
 
         return view;
     }

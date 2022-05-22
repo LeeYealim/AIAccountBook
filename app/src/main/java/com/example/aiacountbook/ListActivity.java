@@ -35,7 +35,7 @@ public class ListActivity extends AppCompatActivity {
         // 현재 달의 지출 내역 리스트 GET 요청 및 리스트 뷰 출력
         String yearmonth = ((AiApplication) getApplication()).getHyphenYearMonth();
         Log.d("yelim","리스트 액티비티 년월 : "+yearmonth);
-        String uri = "https://ce2a-110-14-126-182.ngrok.io//accounts/2022-05";//+yearmonth;
+        String uri = "https://ce2a-110-14-126-182.ngrok.io/accounts/2022-05";//+yearmonth;
         new GetRequest(ListActivity.this, uri, "list").execute();
 
     }
