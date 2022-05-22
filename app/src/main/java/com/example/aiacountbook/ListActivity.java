@@ -42,9 +42,9 @@ public class ListActivity extends AppCompatActivity {
 
     private void setListView(){
         // 데이터 원본 준비
-        ArrayList<Item> data = new ArrayList<Item>();
-        data.add(new Item(1, "2022-05-05", "롯데리아", "10000"));
-        data.add(new Item(2, "2022-05-05", "BBQ 치킨", "20000"));
+        ArrayList<ListItem> data = new ArrayList<ListItem>();
+        data.add(new ListItem(1, "2022-05-05", "롯데리아", "10000"));
+        data.add(new ListItem(2, "2022-05-05", "BBQ 치킨", "20000"));
 
         //어댑터 생성
         adapter = new ListAdapter(this, R.layout.list_item, data);

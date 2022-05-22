@@ -8,7 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.aiacountbook.Item;
+import com.example.aiacountbook.ListItem;
 import com.example.aiacountbook.adapter.ListAdapter;
 import com.example.aiacountbook.R;
 
@@ -112,7 +112,7 @@ public class GetRequest extends AsyncTask<String, Void, String> {
 
         JSONObject jObject;
         JSONArray jArray = null;
-        ArrayList<Item> list = null;
+        ArrayList<ListItem> list = null;
 
         // 목록 화면에서의 GET 요청일 경우
         if(type.equals("list")){
@@ -142,7 +142,7 @@ public class GetRequest extends AsyncTask<String, Void, String> {
                 public void onItemClick(AdapterView<?> parent, View vClicked,
                                         int position, long id) {
 
-                    String place = ((Item)adapter.getItem(position)).place;
+                    String place = ((ListItem)adapter.getItem(position)).place;
                     Toast.makeText(activity, place + " selected",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -151,14 +151,14 @@ public class GetRequest extends AsyncTask<String, Void, String> {
     }
 
     // Json 배열을 Item 객체 배열로 바꾸는 메소드
-    private ArrayList<Item> jsonToItemList(JSONArray jsonList) throws JSONException {
+    private ArrayList<ListItem> jsonToItemList(JSONArray jsonList) throws JSONException {
         Log.d("yelim","jsonToItemList() 호출 ...");
 
-        ArrayList<Item> list = new ArrayList<Item>();
+        ArrayList<ListItem> list = new ArrayList<ListItem>();
 
         for(int i=0; i<jsonList.length(); i++){
             JSONObject obj = jsonList.getJSONObject(i);
-            Item item = new Item(obj.getInt("idx"),obj.getString("date"),obj.getString("place"),obj.getString("price"));
+            ListItem item = new ListItem(obj.getInt("idx"),obj.getString("date"),obj.getString("place"),obj.getString("price"));
             list.add(item);
         }
 

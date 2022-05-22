@@ -7,7 +7,7 @@
     >
 
     <TextView
-        android:id="@+id/tv_item_gridview"
+        android:id="@+id/textview_day"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:textSize="15sp"/>
@@ -21,14 +21,14 @@
         >
 
         <TextView
-            android:id="@+id/day_count"
+            android:id="@+id/textview_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:text=""/>
 
         <TextView
-            android:id="@+id/day_price"
+            android:id="@+id/textview_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="10sp"

@@ -1,8 +1,5 @@
 package com.example.aiacountbook.adapter;
 
-//public class ListAdapter {
-//}
-
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -10,24 +7,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.aiacountbook.ListItem;
+import com.example.aiacountbook.GridItem;
 import com.example.aiacountbook.R;
-import com.example.aiacountbook.api.DeleteRequest;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class ListAdapter extends BaseAdapter {
+public class GridAdapter extends BaseAdapter {
     private Context mContext;
     private int mResource;
-    public ArrayList<ListItem> mItems = new ArrayList<ListItem>();
+    private  ArrayList<GridItem> mItems;
+    private int year;       // 실제 년
+    private int month;      // 실제 월(0부터 시작x)
 
-    public ListAdapter(Context context, int resource, ArrayList<ListItem> items) {
+    public GridAdapter(Context context, int resource, int year, int month) {
         mContext = context;
-        mItems = items;
+        //mItems = items;
         mResource = resource;
+        this.year = year;
+        this.month = month;
+
+        mItems = new ArrayList<GridItem>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month-1, 1);
+        // 이번 달 1일 무슨 요일인지 판단 calendar.set(Year,Month,Day)
+        // 1:일, 2:월, ....
+        int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
+        //1일 - 요일 매칭 시키기 위해 공백 add
+        ArrayList<GridItem> list = new ArrayList<GridItem>();
+        for (int i = 1; i < dayNum; i++) {
+            list.add(new GridItem("",  ""+year, ""+month));
+        }
+        for (int i = 0; i < calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
+            list.add(new GridItem(""+(i + 1),  "", ""));
+        }
+
+        mItems = list;
     }
 
     // MyAdapter 클래스가 관리하는 항목의 총 개수를 반환
@@ -51,6 +68,7 @@ public class ListAdapter extends BaseAdapter {
     // position 위치의 항목에 해당되는 항목뷰를 반환하는 것이 목적임
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //Log.d("yelim","GridAdapter > getView() position : "+ position);
 
         if (convertView == null) { // 해당 항목 뷰가 이전에 생성된 적이 없는 경우
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -58,28 +76,14 @@ public class ListAdapter extends BaseAdapter {
             convertView = inflater.inflate(mResource, parent,false);
         }
 
+        TextView date = (TextView) convertView.findViewById(R.id.textview_day);
+        date.setText(mItems.get(position).day);
 
-        TextView date = (TextView) convertView.findViewById(R.id.list_date);
-        date.setText(mItems.get(position).date);
+        TextView count = (TextView) convertView.findViewById(R.id.textview_count);
+        count.setText(mItems.get(position).count);
 
-        TextView title = (TextView) convertView.findViewById(R.id.list_title);
-        title.setText(mItems.get(position).place);
-
-        TextView price = (TextView) convertView.findViewById(R.id.list_price);
-        price.setText(mItems.get(position).price);
-
-        ImageButton btn_delete = (ImageButton) convertView.findViewById(R.id.btn_delete);
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("yelim", "DELETE 버튼 클릭");
-                Log.d("yelim", "position : " + position);
-                Log.d("yelim", "선택 : " + mItems.get(position).place + " " + mItems.get(position).idx);
-                
-                // 삭제 API 호출
-                String uri = "https://e866-110-14-126-182.ngrok.io/accounts/" + mItems.get(position).idx;
-                new DeleteRequest((Activity) mContext, uri, ListAdapter.this, position).execute();
-            }
-        });
+        TextView total = (TextView) convertView.findViewById(R.id.textview_total);
+        total.setText(mItems.get(position).total);
 
         return convertView;
     }
