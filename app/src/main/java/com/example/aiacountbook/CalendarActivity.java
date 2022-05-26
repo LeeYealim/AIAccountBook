@@ -51,7 +51,6 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("yelim", ""+vpPager.getCurrentItem()); // ------------------------- 잠깐 테스트용
-
 //                // 액티비티 열기
 //                //Intent intent = new Intent(getApplicationContext(), ImageTestActivity.class);
 //                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
@@ -88,13 +87,16 @@ public class CalendarActivity extends AppCompatActivity {
 
         // 뷰 페이저랑 프래그먼트 어댑터 연결
         vpPager = findViewById(R.id.vpPager);
+
         adapter = new PagerAdapter(this);
         vpPager.setAdapter(adapter);
 
+        // 버그 방지용...
+        vpPager.setOffscreenPageLimit(1);
+
         // 뷰페이저 페이지 설정
-        //vpPager.setCurrentItem(idx);      // 원래 이게 맞는데 -11~10정도 오류남..
-        vpPager.setCurrentItem(idx+10);
-        //vpPager.setCurrentItem(3);
+        vpPager.setCurrentItem(idx-1);      // 원래 이게 맞는데 -11~10정도 오류남..
+
 
         // 뷰 페이저 페이지 변경 이벤트
         vpPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
