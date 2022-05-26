@@ -3,21 +3,18 @@ package com.example.aiacountbook.adapter;
 //public class ListAdapter {
 //}
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aiacountbook.ListItem;
 import com.example.aiacountbook.R;
-import com.example.aiacountbook.api.DeleteRequest;
 import com.example.aiacountbook.database.DBHelper;
 
 import java.util.ArrayList;
@@ -96,7 +93,7 @@ public class ListAdapter extends BaseAdapter {
     }
 
     private void deleteRecord(int position){
-        mDbHelper.deleteUserBySQL(""+mItems.get(position).idx);
+        mDbHelper.deleteAccountBySQL(""+mItems.get(position).idx);
 
         Toast.makeText(mContext, "삭제되었습니다.",
                 Toast.LENGTH_SHORT).show();

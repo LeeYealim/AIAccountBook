@@ -2,7 +2,6 @@ package com.example.aiacountbook.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,7 @@ public class GridAdapter2 extends BaseAdapter {
             String date = year + "-" + s_month + "-" + s_day;
 
             //Log.d("yelim", "date : "+date);
-            Cursor cursor =  mDbHelper.getAllAccountWhereDateBySQL(date);
+            Cursor cursor =  mDbHelper.getCalendarAccountWhereDateBySQL(date);
             if (cursor.moveToNext()) {
                 //Log.d("yelim","결과 : " + cursor.getString(0) + " " + cursor.getInt(1) +" " +cursor.getInt(2));
                 list.add(new GridItem(""+i,  ""+cursor.getInt(1), ""+cursor.getInt(2)));

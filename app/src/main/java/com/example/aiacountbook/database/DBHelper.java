@@ -52,14 +52,20 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getAllAccountBySQL() {
+    public Cursor getListAccountBySQL() {
         String sql = "Select * FROM " + AccountContract.Accounts.TABLE_NAME;
+        return getReadableDatabase().rawQuery(sql,null);
+    }
+
+    public Cursor getAccountWhereYearMonthBySQL(String yearmonth) {
+        String sql = "Select * FROM " + AccountContract.Accounts.TABLE_NAME
+                +" Where "+AccountContract.Accounts.KEY_DATE + " Like '" + yearmonth + "%' ";
         return getReadableDatabase().rawQuery(sql,null);
     }
 
     // 파라미터로 들어온 날짜에 해당하는 데이터 개수, 금액 합 리턴
     // 하나의 행으로 리턴됨
-    public Cursor getAllAccountWhereDateBySQL(String date) {    // 파라미터 형식 : 0000-00-00
+    public Cursor getCalendarAccountWhereDateBySQL(String date) {    // 파라미터 형식 : 0000-00-00
         String sql = "Select "+AccountContract.Accounts.KEY_DATE+"," + "Count(date)" + "," + " Sum(price) "
                 + " FROM " + AccountContract.Accounts.TABLE_NAME
                 + " Where " + AccountContract.Accounts.KEY_DATE + " = '"+date+"' "
@@ -85,7 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return getReadableDatabase().rawQuery(sql,null);
     }
 
-        public void deleteUserBySQL(String _id) {
+        public void deleteAccountBySQL(String _id) {
         try {
             String sql = String.format (
                     "DELETE FROM %s WHERE %s = %s",

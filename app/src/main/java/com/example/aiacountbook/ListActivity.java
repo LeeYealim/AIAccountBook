@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.aiacountbook.adapter.ListAdapter;
 import com.example.aiacountbook.application.AiApplication;
-import com.example.aiacountbook.api.GetRequest;
 import com.example.aiacountbook.database.DBHelper;
 
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class ListActivity extends AppCompatActivity {
 
         ArrayList<ListItem> list = new ArrayList<ListItem>();
 
-        Cursor cursor = mDbHelper.getAllAccountBySQL();
+        Cursor cursor = mDbHelper.getListAccountBySQL();
         while (cursor.moveToNext()) {
             ListItem item = new ListItem(cursor.getInt(0),cursor.getString(1),cursor.getString(2),""+cursor.getInt(3));
             list.add(item);

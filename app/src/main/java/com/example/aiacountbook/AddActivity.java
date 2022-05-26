@@ -78,14 +78,14 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 액티비티 종료
-                ///////////////////////////////////////finish();
+                finish();
 
                 // -- DB 목록 확인용 테스트 코드 --
-                Cursor cursor = mDbHelper.getAllAccountBySQL2();
-
-                while (cursor.moveToNext()) {
-                    Log.d("yelim", ""+cursor.getInt(0)+" \t"+cursor.getString(1)+" \t"+cursor.getString(2)+"\t"+cursor.getInt(3));
-                }
+//                Cursor cursor = mDbHelper.getAllAccountBySQL2();
+//
+//                while (cursor.moveToNext()) {
+//                    Log.d("yelim", ""+cursor.getInt(0)+" \t"+cursor.getString(1)+" \t"+cursor.getString(2)+"\t"+cursor.getInt(3));
+//                }
             }
         });
 
