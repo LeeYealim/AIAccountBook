@@ -10,24 +10,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aiacountbook.ListItem;
 import com.example.aiacountbook.R;
 import com.example.aiacountbook.api.DeleteRequest;
+import com.example.aiacountbook.database.DBHelper;
 
 import java.util.ArrayList;
 
 public class ListAdapter extends BaseAdapter {
     private Context mContext;
     private int mResource;
-    public ArrayList<ListItem> mItems = new ArrayList<ListItem>();
+    public ArrayList<ListItem> mItems;
+
+    private DBHelper mDbHelper;
 
     public ListAdapter(Context context, int resource, ArrayList<ListItem> items) {
         mContext = context;
         mItems = items;
         mResource = resource;
+
+        mDbHelper = new DBHelper(context);
+
     }
 
     // MyAdapter 클래스가 관리하는 항목의 총 개수를 반환
@@ -74,13 +82,26 @@ public class ListAdapter extends BaseAdapter {
                 Log.d("yelim", "DELETE 버튼 클릭");
                 Log.d("yelim", "position : " + position);
                 Log.d("yelim", "선택 : " + mItems.get(position).place + " " + mItems.get(position).idx);
-                
-                // 삭제 API 호출
-                String uri = "https://e866-110-14-126-182.ngrok.io/accounts/" + mItems.get(position).idx;
-                new DeleteRequest((Activity) mContext, uri, ListAdapter.this, position).execute();
+
+                // DB 삭제
+                deleteRecord(position);
+
+//                // 삭제 API 호출
+//                String uri = "https://e866-110-14-126-182.ngrok.io/accounts/" + mItems.get(position).idx;
+//                new DeleteRequest((Activity) mContext, uri, ListAdapter.this, position).execute();
             }
         });
 
         return convertView;
     }
+
+    private void deleteRecord(int position){
+        mDbHelper.deleteUserBySQL(""+mItems.get(position).idx);
+
+        Toast.makeText(mContext, "삭제되었습니다.",
+                Toast.LENGTH_SHORT).show();
+        this.mItems.remove(position);
+        this.notifyDataSetChanged();
+    }
+
 }

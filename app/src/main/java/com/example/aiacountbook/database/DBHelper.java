@@ -69,4 +69,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return getReadableDatabase().rawQuery(sql,null);
     }
 
+        public void deleteUserBySQL(String _id) {
+        try {
+            String sql = String.format (
+                    "DELETE FROM %s WHERE %s = %s",
+                    AccountContract.Accounts.TABLE_NAME,
+                    AccountContract.Accounts._ID,
+                    _id);
+            getWritableDatabase().execSQL(sql);
+        } catch (SQLException e) {
+            Log.e(TAG,"Error in deleting recodes");
+        }
+    }
+
 }
