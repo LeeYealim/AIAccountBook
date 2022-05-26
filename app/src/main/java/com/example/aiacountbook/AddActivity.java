@@ -78,15 +78,14 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 액티비티 종료
-                finish();
+                ///////////////////////////////////////finish();
 
-//                // -- DB 목록 확인용 테스트 코드 --
-//                Cursor cursor = mDbHelper.getAllAccountBySQL();
-//
-//                StringBuffer buffer = new StringBuffer();
-//                while (cursor.moveToNext()) {
-//                    Log.d("yelim", ""+cursor.getInt(0)+" \t"+cursor.getString(1)+" \t"+cursor.getString(2)+"\t"+cursor.getInt(3));
-//                }
+                // -- DB 목록 확인용 테스트 코드 --
+                Cursor cursor = mDbHelper.getAllAccountBySQL2();
+
+                while (cursor.moveToNext()) {
+                    Log.d("yelim", ""+cursor.getInt(0)+" \t"+cursor.getString(1)+" \t"+cursor.getString(2)+"\t"+cursor.getInt(3));
+                }
             }
         });
 
@@ -121,7 +120,7 @@ public class AddActivity extends AppCompatActivity {
                         String month = ( monthOfYear < 10) ? "0"+monthOfYear : ""+monthOfYear;
                         String day = ( dayOfMonth < 10) ? "0"+dayOfMonth : ""+dayOfMonth;
                         EditText edit_date = (EditText)findViewById(R.id.edit_date);
-                        edit_date.setText(String.format("%d-%s-%s ", year, month, day));
+                        edit_date.setText(String.format("%d-%s-%s", year, month, day));
                     }
                 };
 

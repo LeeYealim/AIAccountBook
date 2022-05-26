@@ -57,14 +57,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return getReadableDatabase().rawQuery(sql,null);
     }
 
-    public Cursor getAllAccountBySQL2(String yearmonth) {
-        //String sql = "Select "+AccountContract.Accounts._ID+"," + AccountContract.Accounts.KEY_DATE+"," + AccountContract.Accounts.KEY_PLACE + "," + AccountContract.Accounts.KEY_PRICE + " FROM " + AccountContract.Accounts.TABLE_NAME + " Where " + AccountContract.Accounts.KEY_PRICE + " = 12000 ";
-
-
-        String sql = "Select "+AccountContract.Accounts._ID+"," + AccountContract.Accounts.KEY_DATE+"," + "Count(date)" + "," + " Sum(price) "
+    // 파라미터로 들어온 날짜에 해당하는 데이터 개수, 금액 합 리턴
+    // 하나의 행으로 리턴됨
+    public Cursor getAllAccountWhereDateBySQL(String date) {    // 파라미터 형식 : 0000-00-00
+        String sql = "Select "+AccountContract.Accounts.KEY_DATE+"," + "Count(date)" + "," + " Sum(price) "
                 + " FROM " + AccountContract.Accounts.TABLE_NAME
-                + " Where " + AccountContract.Accounts.KEY_DATE + " = '"+yearmonth+"' "
+                + " Where " + AccountContract.Accounts.KEY_DATE + " = '"+date+"' "
                 + " Group By " + AccountContract.Accounts.KEY_DATE;
+
+        // 리턴 형식 : (String)date, (int)count, (int)sum
+        return getReadableDatabase().rawQuery(sql,null);
+    }
+
+    public Cursor getAllAccountBySQL2() {
+//        String sql = String.format (
+//                "SELECT * FROM %s WHERE %s = '%s'",
+//                AccountContract.Accounts.TABLE_NAME,
+//                AccountContract.Accounts.KEY_PLACE,
+//                "i");
+        String sql = " Select * FROM Account Where date = '2022-05-26 '";
+
+//        String sql = "Select "+AccountContract.Accounts._ID+"," + AccountContract.Accounts.KEY_DATE+"," + "Count(date)" + "," + " Sum(price) "
+//                + " FROM " + AccountContract.Accounts.TABLE_NAME
+//                + " Where " + AccountContract.Accounts.KEY_DATE + " = 2022-05-05 "
+//                + " Group By " + AccountContract.Accounts.KEY_DATE;
 
         return getReadableDatabase().rawQuery(sql,null);
     }

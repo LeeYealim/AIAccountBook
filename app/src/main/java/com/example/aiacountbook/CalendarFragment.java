@@ -4,19 +4,12 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import com.example.aiacountbook.adapter.GridAdapter;
-import com.example.aiacountbook.api.GetRequest;
-import com.example.aiacountbook.api.GridGetRequest;
-import com.example.aiacountbook.application.AiApplication;
-
-import java.util.ArrayList;
-import java.util.Calendar;
+import com.example.aiacountbook.adapter.GridAdapter2;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,7 +61,7 @@ public class CalendarFragment extends Fragment {
         String str_month = (month<10) ? "0"+month : ""+month;
         
         // 그리드뷰 어댑터 생성
-        GridAdapter adapter = new GridAdapter(getActivity(), R.layout.calendar_item_day, year, month);
+        GridAdapter2 adapter = new GridAdapter2(getActivity(), R.layout.calendar_item_day, year, month);
         //어댑터 연결 -- 로딩이 길어서 먼저 연결함... 일수라도 보이게...
         GridView gridView = (GridView)view.findViewById(R.id.gridview);
         gridView.setAdapter(adapter);
