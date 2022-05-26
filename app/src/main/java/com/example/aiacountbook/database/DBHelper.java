@@ -57,6 +57,18 @@ public class DBHelper extends SQLiteOpenHelper {
         return getReadableDatabase().rawQuery(sql,null);
     }
 
+    public Cursor getAllAccountBySQL2() {
+        //String sql = "Select "+AccountContract.Accounts._ID+"," + AccountContract.Accounts.KEY_DATE+"," + AccountContract.Accounts.KEY_PLACE + "," + AccountContract.Accounts.KEY_PRICE + " FROM " + AccountContract.Accounts.TABLE_NAME + " Where " + AccountContract.Accounts.KEY_PRICE + " = 12000 ";
+
+
+        String sql = "Select "+AccountContract.Accounts._ID+"," + AccountContract.Accounts.KEY_DATE+"," + "Count(date)" + "," + " Sum(price) "
+                + " FROM " + AccountContract.Accounts.TABLE_NAME
+                + " Where " + AccountContract.Accounts.KEY_DATE + " = '2022-05-20' "
+                + " Group By " + AccountContract.Accounts.KEY_DATE;
+
+        return getReadableDatabase().rawQuery(sql,null);
+    }
+
 //    public void deleteUserBySQL(String _id) {
 //        try {
 //            String sql = String.format (
