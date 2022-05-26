@@ -50,11 +50,13 @@ public class CalendarActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("yelim", ""+vpPager.getCurrentItem()); // ------------------------- 잠깐 테스트용
-//                // 액티비티 열기
-//                //Intent intent = new Intent(getApplicationContext(), ImageTestActivity.class);
-//                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-//                startActivity(intent);
+                // 현재 프래그먼트 position 확인용 테스트 코드
+                //Log.d("yelim", ""+vpPager.getCurrentItem()); // ------------------------- 잠깐 테스트용
+
+                // 액티비티 열기
+                //Intent intent = new Intent(getApplicationContext(), ImageTestActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+                startActivity(intent);
 
             }
         });

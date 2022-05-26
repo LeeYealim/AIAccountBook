@@ -6,6 +6,7 @@ import androidx.core.content.FileProvider;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -38,6 +39,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
@@ -75,7 +77,16 @@ public class AddActivity extends AppCompatActivity {
         Closebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 액티비티 종료
                 finish();
+
+//                // -- DB 목록 확인용 테스트 코드 --
+//                Cursor cursor = mDbHelper.getAllAccountBySQL();
+//
+//                StringBuffer buffer = new StringBuffer();
+//                while (cursor.moveToNext()) {
+//                    Log.d("yelim", ""+cursor.getInt(0)+" \t"+cursor.getString(1)+" \t"+cursor.getString(2)+"\t"+cursor.getInt(3));
+//                }
             }
         });
 
@@ -87,6 +98,9 @@ public class AddActivity extends AppCompatActivity {
                 Log.d("yelim","확인 버튼 클릭");
                 // DB 저장
                 insertRecord();
+                Toast.makeText(AddActivity.this, "저장되었습니다.",
+                        Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
@@ -102,12 +116,20 @@ public class AddActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
                     {
+                        // 월, 일이 한 자리수인 경우, 앞에 0을 붙여줌
+                        monthOfYear = monthOfYear + 1;
+                        String month = ( monthOfYear < 10) ? "0"+monthOfYear : ""+monthOfYear;
+                        String day = ( dayOfMonth < 10) ? "0"+dayOfMonth : ""+dayOfMonth;
                         EditText edit_date = (EditText)findViewById(R.id.edit_date);
-                        edit_date.setText(String.format("%d-%d-%d ", year ,monthOfYear+1,dayOfMonth));
+                        edit_date.setText(String.format("%d-%s-%s ", year, month, day));
                     }
                 };
 
-                DatePickerDialog dialog = new DatePickerDialog(AddActivity.this, callbackMethod, 2020, 12, 0);
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog = new DatePickerDialog(AddActivity.this, callbackMethod, year, month, day);
                 dialog.show();
             }
         });
