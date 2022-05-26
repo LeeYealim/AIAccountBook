@@ -14,6 +14,8 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, AccountContract.DB_NAME, null, AccountContract.DATABASE_VERSION);
     }
 
+
+
     // ** onCreate(), onUpgrade()는 우리가 호출하지x
     // 안드로이드 프레임워크에서 호출함
 
@@ -31,6 +33,41 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.i(TAG,getClass().getName() +".onUpgrade()");
         db.execSQL(AccountContract.Accounts.DELETE_TABLE);
         onCreate(db);
+    }
+
+
+
+    public Cursor getListAccountBySQL() {
+        String sql = "Select * FROM " + AccountContract.Accounts.TABLE_NAME;
+        return getReadableDatabase().rawQuery(sql,null);
+    }
+
+    public Cursor getListAccountWhereYearMonthBySQL(String yearmonth) {
+        String sql = "Select * FROM " + AccountContract.Accounts.TABLE_NAME
+                +" Where "+AccountContract.Accounts.KEY_DATE + " Like '" + yearmonth + "%' ";
+        return getReadableDatabase().rawQuery(sql,null);
+    }
+
+    // 파라미터로 들어온 날짜에 해당하는 데이터 개수, 금액 합 리턴
+    // 하나의 행으로 리턴됨
+    public Cursor getCalendarAccountWhereDateBySQL(String date) {    // 파라미터 형식 : 0000-00-00
+        String sql = "Select "+AccountContract.Accounts.KEY_DATE+"," + "Count(date)" + "," + " Sum(price) "
+                + " FROM " + AccountContract.Accounts.TABLE_NAME
+                + " Where " + AccountContract.Accounts.KEY_DATE + " = '"+date+"' "
+                + " Group By " + AccountContract.Accounts.KEY_DATE;
+
+        // 리턴 형식 : (String)date, (int)count, (int)sum
+        return getReadableDatabase().rawQuery(sql,null);
+    }
+
+    public Cursor getCalendarAccountTotalBySQL(String yearmonth) {    // 파라미터 형식 : 0000-00-00
+        String sql = "Select substr("+AccountContract.Accounts.KEY_DATE+", 0, 8) AS ym," + "Count(date)" + "," + " Sum(price) "
+                + " FROM " + AccountContract.Accounts.TABLE_NAME
+                + " Where ym Like '"+yearmonth+"%' ";
+                //+ " Group By ym";   // 그룹 바이 안 해도 되는 듯?
+
+        // 리턴 형식 : (String)ym, (int)count, (int)sum
+        return getReadableDatabase().rawQuery(sql,null);
     }
 
     public void insertAccountBySQL(String date, String place, String price) {
@@ -52,46 +89,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getListAccountBySQL() {
-        String sql = "Select * FROM " + AccountContract.Accounts.TABLE_NAME;
-        return getReadableDatabase().rawQuery(sql,null);
-    }
-
-    public Cursor getAccountWhereYearMonthBySQL(String yearmonth) {
-        String sql = "Select * FROM " + AccountContract.Accounts.TABLE_NAME
-                +" Where "+AccountContract.Accounts.KEY_DATE + " Like '" + yearmonth + "%' ";
-        return getReadableDatabase().rawQuery(sql,null);
-    }
-
-    // 파라미터로 들어온 날짜에 해당하는 데이터 개수, 금액 합 리턴
-    // 하나의 행으로 리턴됨
-    public Cursor getCalendarAccountWhereDateBySQL(String date) {    // 파라미터 형식 : 0000-00-00
-        String sql = "Select "+AccountContract.Accounts.KEY_DATE+"," + "Count(date)" + "," + " Sum(price) "
-                + " FROM " + AccountContract.Accounts.TABLE_NAME
-                + " Where " + AccountContract.Accounts.KEY_DATE + " = '"+date+"' "
-                + " Group By " + AccountContract.Accounts.KEY_DATE;
-
-        // 리턴 형식 : (String)date, (int)count, (int)sum
-        return getReadableDatabase().rawQuery(sql,null);
-    }
-
-    public Cursor getAllAccountBySQL2() {
-//        String sql = String.format (
-//                "SELECT * FROM %s WHERE %s = '%s'",
-//                AccountContract.Accounts.TABLE_NAME,
-//                AccountContract.Accounts.KEY_PLACE,
-//                "i");
-        String sql = " Select * FROM Account Where date = '2022-05-26 '";
-
-//        String sql = "Select "+AccountContract.Accounts._ID+"," + AccountContract.Accounts.KEY_DATE+"," + "Count(date)" + "," + " Sum(price) "
-//                + " FROM " + AccountContract.Accounts.TABLE_NAME
-//                + " Where " + AccountContract.Accounts.KEY_DATE + " = 2022-05-05 "
-//                + " Group By " + AccountContract.Accounts.KEY_DATE;
-
-        return getReadableDatabase().rawQuery(sql,null);
-    }
-
-        public void deleteAccountBySQL(String _id) {
+    public void deleteAccountBySQL(String _id) {
         try {
             String sql = String.format (
                     "DELETE FROM %s WHERE %s = %s",

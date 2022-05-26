@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,12 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aiacountbook.adapter.PagerAdapter;
 import com.example.aiacountbook.application.AiApplication;
+import com.example.aiacountbook.database.DBHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -33,7 +36,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class CalendarActivity extends AppCompatActivity {
-
+    private DBHelper mDbHelper;
     private String ActionBarTitle;
     ViewPager2 vpPager;
     PagerAdapter adapter;
@@ -42,10 +45,15 @@ public class CalendarActivity extends AppCompatActivity {
     
     int idx; // 화면 전환 시 반영하기 위함
 
+    EditText edit_total_count;  // 하단 등록건수
+    EditText edit_total_price;  // 하단 금액합계
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        mDbHelper = new DBHelper(this);
 
         //플로팅 버튼 클릭 시 영수증 등록 액티비티 실행
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.btn_add);
@@ -84,6 +92,9 @@ public class CalendarActivity extends AppCompatActivity {
         // 앱바 설정
         ActionBarTitle =  ((AiApplication) getApplication()).getStrYearMonth();
         getSupportActionBar().setTitle(ActionBarTitle);
+        
+        // 하단 표시
+        setCalendarTotal();
 
         // 뷰페이저 포지션 설정
         idx = year*12 + month - 2000*12 -1;      // 달은 -1 적게 나옴    !!! 오차 때문에 -1 붙임(?)
@@ -115,6 +126,9 @@ public class CalendarActivity extends AppCompatActivity {
                 ((AiApplication) getApplication()).setYearMonth(""+year, ""+month);
                 ActionBarTitle =  year+"년 "+month+"월";
                 getSupportActionBar().setTitle(ActionBarTitle);
+                
+                // 하단 표시
+                setCalendarTotal();
             }
         });
 
@@ -155,6 +169,22 @@ public class CalendarActivity extends AppCompatActivity {
         adapter = new PagerAdapter(this);
         vpPager.setAdapter(adapter);
         vpPager.setCurrentItem(idx);
+
+    }
+    
+    // 달력 하단 등록건수, 월간합계 표시
+    public void setCalendarTotal(){
+
+        edit_total_count = (EditText)findViewById(R.id.edit_total_count);
+        edit_total_price = (EditText)findViewById(R.id.edit_total_price);
+
+        // cursor는 한 행만 리턴됨
+        String yearmonth = ((AiApplication) getApplication()).getHyphenYearMonth();
+        Cursor cursor = mDbHelper.getCalendarAccountTotalBySQL(yearmonth);
+        if (cursor.moveToNext()) {
+            edit_total_count.setText(cursor.getInt(1)+" 건");
+            edit_total_price.setText(cursor.getInt(2)+" 원");
+        }
 
     }
 

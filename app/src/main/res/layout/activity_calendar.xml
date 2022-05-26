@@ -137,7 +137,7 @@
 
                 <EditText
                     android:enabled="false"
-                    android:id="@+id/edit_total"
+                    android:id="@+id/edit_total_count"
                     android:layout_width="80dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"
@@ -162,7 +162,7 @@
 
                 <EditText
                     android:enabled="false"
-                    android:id="@+id/edit_cost"
+                    android:id="@+id/edit_total_price"
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"

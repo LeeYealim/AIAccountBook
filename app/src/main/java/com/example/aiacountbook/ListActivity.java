@@ -55,7 +55,10 @@ public class ListActivity extends AppCompatActivity {
 
         ArrayList<ListItem> list = new ArrayList<ListItem>();
 
-        Cursor cursor = mDbHelper.getListAccountBySQL();
+        //Cursor cursor = mDbHelper.getListAccountBySQL();
+        // 현재 년-월에 해당하는 목록만 표시
+        String yearmonth = ((AiApplication) getApplication()).getHyphenYearMonth();
+        Cursor cursor = mDbHelper.getListAccountWhereYearMonthBySQL(yearmonth);
         while (cursor.moveToNext()) {
             ListItem item = new ListItem(cursor.getInt(0),cursor.getString(1),cursor.getString(2),""+cursor.getInt(3));
             list.add(item);
