@@ -31,6 +31,7 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.example.aiacountbook.api.PostRequest;
+import com.example.aiacountbook.database.DBHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +41,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
+
+    private DBHelper mDbHelper;
 
     private TextView edit_date;
     private DatePickerDialog.OnDateSetListener callbackMethod;
@@ -61,6 +64,8 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        mDbHelper = new DBHelper(this);     // DBHelper 객체 생성
+
         ab = getSupportActionBar() ;
         ab.setDisplayHomeAsUpEnabled(false);     // 위로 버튼 활성화
         ab.setTitle("영수증 등록");               // 앱바 타이틀 설정
@@ -80,32 +85,8 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("yelim","확인 버튼 클릭");
-
-                EditText edit_date = (EditText)findViewById(R.id.edit_date);
-                String str_date = edit_date.getText().toString();
-
-                EditText edit_place = (EditText)findViewById(R.id.edit_place);
-                String str_place = edit_place.getText().toString();
-
-                EditText edit_price = (EditText)findViewById(R.id.edit_price);
-                String str_price = edit_price.getText().toString();
-                
-                if(str_date.equals("") && str_place.equals("") && str_price.equals("")){
-                    Toast.makeText(AddActivity.this, "입력값을 확인하세요.",
-                        Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                // 데이터 저장 POST API 호출
-                JSONObject payload = new JSONObject();
-                try {
-                    payload.put("date", str_date);
-                    payload.put("place", str_place);
-                    payload.put("price", str_price);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String uri = "https://e866-110-14-126-182.ngrok.io/accounts";
-                new PostRequest(AddActivity.this, uri, "insert").execute(payload);
+                // DB 저장
+                insertRecord();
             }
         });
 
@@ -146,7 +127,54 @@ public class AddActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void insertRecord() {
+        EditText edit_date = (EditText)findViewById(R.id.edit_date);
+        String str_date = edit_date.getText().toString();
+
+        EditText edit_place = (EditText)findViewById(R.id.edit_place);
+        String str_place = edit_place.getText().toString();
+
+        EditText edit_price = (EditText)findViewById(R.id.edit_price);
+        String str_price = edit_price.getText().toString();
+
+        if(str_date.equals("") && str_place.equals("") && str_price.equals("")){
+            Toast.makeText(AddActivity.this, "입력값을 확인하세요.",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mDbHelper.insertAccountBySQL(str_date, str_place, str_price);
+    }
+
+    // --- HTTP API 호출 코드 ---
+    private void PostApi(){
+        //                EditText edit_date = (EditText)findViewById(R.id.edit_date);
+        //                String str_date = edit_date.getText().toString();
+        //
+        //                EditText edit_place = (EditText)findViewById(R.id.edit_place);
+        //                String str_place = edit_place.getText().toString();
+        //
+        //                EditText edit_price = (EditText)findViewById(R.id.edit_price);
+        //                String str_price = edit_price.getText().toString();
+        //
+        //                if(str_date.equals("") && str_place.equals("") && str_price.equals("")){
+        //                    Toast.makeText(AddActivity.this, "입력값을 확인하세요.",
+        //                        Toast.LENGTH_SHORT).show();
+        //                    return;
+        //                }
+        //                // 데이터 저장 POST API 호출
+        //                JSONObject payload = new JSONObject();
+        //                try {
+        //                    payload.put("date", str_date);
+        //                    payload.put("place", str_place);
+        //                    payload.put("price", str_price);
+        //                } catch (JSONException e) {
+        //                    e.printStackTrace();
+        //                }
+        //                String uri = "https://e866-110-14-126-182.ngrok.io/accounts";
+        //                new PostRequest(AddActivity.this, uri, "insert").execute(payload);
     }
     
     
